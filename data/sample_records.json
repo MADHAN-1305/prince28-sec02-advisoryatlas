@@ -1,0 +1,20 @@
+[
+  {
+    "id": "001",
+    "title": "Sample Advisory Document",
+    "description": "First sample record",
+    "category": "advisory"
+  },
+  {
+    "id": "002",
+    "title": "Second Advisory Document",
+    "description": "Second sample record",
+    "category": "research"
+  },
+  {
+    "id": "003",
+    "title": "Third Advisory Document",
+    "description": "Third sample record",
+    "category": "analysis"
+  }
+]
