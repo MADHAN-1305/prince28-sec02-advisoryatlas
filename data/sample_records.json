@@ -1,11 +1,55 @@
 [
   {
     "id": "001",
+    "note_id": "CIVN-2023-0280",
+    "title": "Multiple Vulnerabilities in Google Chrome for Desktop",
+    "severity": "HIGH",
+    "vendor": "Google Chrome",
+    "affected_products": [
+      "Google Chrome for Desktop"
+    ],
+    "affected_versions": [
+      "Versions prior to 117.0.5938.132 (for Windows, Mac and Linux)"
+    ],
+    "cve_ids": [
+      "CVE-2023-5217",
+      "CVE-2023-5186",
+      "CVE-2023-5187"
+    ],
+    "solution": "Apply appropriate updates as mentioned by the vendor: https://chromereleases.googleblog.com/2023/09/stable-channel-update-for-desktop_27.html",
+    "date": "2023-09-29"
+  },
+  {
+    "id": "002",
+    "note_id": "CIVN-2024-0003",
+    "title": "Multiple Vulnerabilities in Google Chrome for Desktop",
+    "severity": "HIGH",
+    "vendor": "Google Chrome",
+    "affected_products": [
+      "Google Chrome for Desktop"
+    ],
+    "affected_versions": [
+      "Versions prior to 120.0.6099.199 (for Mac and Linux)",
+      "Versions prior to 120.0.6099.199/200 (for Windows)"
+    ],
+    "cve_ids": [
+      "CVE-2024-0222",
+      "CVE-2024-0223",
+      "CVE-2024-0224",
+      "CVE-2024-0225"
+    ],
+    "solution": "Apply appropriate updates as mentioned by the vendor: https://chromereleases.googleblog.com/2024/01/stable-channel-update-for-desktop.html",
+    "date": "2024-01-09"
+  },
+  {
+    "id": "003",
     "note_id": "CIVN-2024-0240",
     "title": "Multiple Vulnerabilities in Google Chrome",
     "severity": "HIGH",
-    "vendor": "Google",
-    "affected_products": ["Google Chrome"],
+    "vendor": "Google Chrome",
+    "affected_products": [
+      "Google Chrome"
+    ],
     "affected_versions": [
       "Versions prior to 127.0.6533.99/.100 for Windows and Mac",
       "Versions prior to 127.0.6533.99 for Linux"
@@ -18,77 +62,71 @@
       "CVE-2024-7536",
       "CVE-2024-7550"
     ],
-    "solution": "Apply the security updates released by Google Chrome.",
+    "solution": "Apply appropriate updates as mentioned by Vendor: https://chromereleases.googleblog.com/2024/08/stable-channel-update-for-desktop.html",
     "date": "2024-08-13"
-  },
-  {
-    "id": "002",
-    "note_id": "CIVN-2024-0241",
-    "title": "Reflected XSS Vulnerability in InstaRISPACS software",
-    "severity": "MEDIUM",
-    "vendor": "Meddiff Technologies",
-    "affected_products": ["InstaRISPACS software"],
-    "affected_versions": [
-      "Version 3.0.0",
-      "Version 4.0.0 Build 29 and prior",
-      "Version 5.0.0 Build 19 and prior"
-    ],
-    "cve_ids": ["CVE-2024-2259"],
-    "solution": "Users of versions 4.0.0 and 5.0.0 should apply the hotfix. Users of version 3.0.0 should upgrade to the latest version and then apply the hotfix.",
-    "date": "2024-08-13"
-  },
-  {
-    "id": "003",
-    "note_id": "CIVN-2024-0226",
-    "title": "Multiple Vulnerabilities in Apache HTTP Server",
-    "severity": "MEDIUM",
-    "vendor": "Apache",
-    "affected_products": ["Apache HTTP Server"],
-    "affected_versions": [
-      "Versions 2.4.60 through 2.4.61",
-      "Versions 2.4.0 through 2.4.61"
-    ],
-    "cve_ids": [
-      "CVE-2024-40898",
-      "CVE-2024-40725"
-    ],
-    "solution": "Apply the appropriate security updates recommended by Apache.",
-    "date": "2024-07-30"
   },
   {
     "id": "004",
-    "note_id": "CIVN-2024-0080",
-    "title": "Information Disclosure Vulnerability in CDAC USB Pratirodh",
-    "severity": "HIGH",
-    "vendor": "CDAC-Hyderabad",
-    "affected_products": ["USB Pratirodh"],
-    "affected_versions": ["Version 3.1.2 and prior"],
-    "cve_ids": ["CVE-2024-1224"],
-    "solution": "Upgrade USB Pratirodh to version 3.1.3 or later.",
-    "date": "2024-03-04"
-  },
-  {
-    "id": "005",
-    "note_id": "CIVN-2024-0260",
-    "title": "Privilege escalation vulnerability in Microsoft Windows Kernel",
+    "note_id": "CIVN-2025-0324",
+    "title": "Privilege Escalation vulnerability in Windows Kernel",
     "severity": "HIGH",
     "vendor": "Microsoft",
     "affected_products": [
       "Windows 10",
       "Windows 11",
-      "Windows Server 2016",
       "Windows Server 2019",
-      "Windows Server 2022"
+      "Windows Server 2022",
+      "Windows Server 2025",
+      "Windows Server 2022, 23H2 (Server Core installation)"
     ],
     "affected_versions": [
-      "Windows 10: 1607, 1809, 21H2, 22H2",
-      "Windows 11: 21H2, 22H2, 23H2, 24H2",
-      "Windows Server 2016",
-      "Windows Server 2019",
-      "Windows Server 2022, including 23H2 Edition"
+      "Windows 10 version 1809: 10.0.17763.0 before 10.0.17763.8027",
+      "Windows 10 version 21H2: 10.0.19044.0 before 10.0.19044.6575",
+      "Windows 10 version 22H2: 10.0.19045.0 before 10.0.19045.6575",
+      "Windows 11 version 25H2: 10.0.26200.0 before 10.0.26200.7171",
+      "Windows 11 version 22H3: 10.0.22631.0 before 10.0.22631.6199",
+      "Windows 11 version 23H2: 10.0.22631.0 before 10.0.22631.6199",
+      "Windows 11 version 24H2: 10.0.26100.0 before 10.0.26100.7171",
+      "Windows Server 2019: 10.0.17763.0 before 10.0.17763.8027",
+      "Windows Server 2019 (Server Core installation): 10.0.17763.0 before 10.0.17763.8027",
+      "Windows Server 2022: 10.0.20348.0 before 10.0.20348.4405",
+      "Windows Server 2025: 10.0.26100.0 before 10.0.26100.7171",
+      "Windows Server 2025 (Server Core installation): 10.0.26100.0 before 10.0.26100.7171",
+      "Windows Server 2022, 23H2 (Server Core installation): 10.0.25398.0 before 10.0.25398.1965"
     ],
-    "cve_ids": ["CVE-2024-38106"],
-    "solution": "Apply the appropriate security updates provided in the Microsoft security advisory.",
-    "date": "2024-08-22"
+    "cve_ids": [
+      "CVE-2025-62215"
+    ],
+    "solution": "Apply appropriate updates as mentioned by Microsoft: https://msrc.microsoft.com/update-guide/en-US/advisory/CVE-2025-62215",
+    "date": "2025-11-18"
+  },
+  {
+    "id": "005",
+    "note_id": "CIVN-2026-0552",
+    "title": "Multiple Vulnerabilities in Git",
+    "severity": "CRITICAL",
+    "vendor": "GitHub",
+    "affected_products": [
+      "Git"
+    ],
+    "affected_versions": [
+      "Git 2.56.x versions prior to 2.56.1",
+      "Git 2.55.x versions prior to 2.55.1",
+      "Git 2.54.x versions prior to 2.54.1",
+      "Git 2.53.x versions prior to 2.53.1",
+      "Git 2.52.x versions prior to 2.52.1",
+      "Git 2.51.x versions prior to 2.51.3",
+      "Git 2.50.x versions prior to 2.50.2"
+    ],
+    "cve_ids": [
+      "CVE-2026-105437",
+      "CVE-2026-114466",
+      "CVE-2026-111760",
+      "CVE-2026-113408",
+      "CVE-2026-114467",
+      "CVE-2026-114469"
+    ],
+    "solution": "Apply appropriate security updates and mitigations as recommended by the vendor: https://github.blog/open-source/git/git-security-vulnerabilities-announced-7/",
+    "date": "2026-11-16"
   }
 ]
