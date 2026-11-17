@@ -1,20 +1,94 @@
 [
   {
     "id": "001",
-    "title": "Sample Advisory Document",
-    "description": "First sample record",
-    "category": "advisory"
+    "note_id": "CIVN-2024-0240",
+    "title": "Multiple Vulnerabilities in Google Chrome",
+    "severity": "HIGH",
+    "vendor": "Google",
+    "affected_products": ["Google Chrome"],
+    "affected_versions": [
+      "Versions prior to 127.0.6533.99/.100 for Windows and Mac",
+      "Versions prior to 127.0.6533.99 for Linux"
+    ],
+    "cve_ids": [
+      "CVE-2024-7533",
+      "CVE-2024-7534",
+      "CVE-2024-7532",
+      "CVE-2024-7535",
+      "CVE-2024-7536",
+      "CVE-2024-7550"
+    ],
+    "solution": "Apply the security updates released by Google Chrome.",
+    "date": "2024-08-13"
   },
   {
     "id": "002",
-    "title": "Second Advisory Document",
-    "description": "Second sample record",
-    "category": "research"
+    "note_id": "CIVN-2024-0241",
+    "title": "Reflected XSS Vulnerability in InstaRISPACS software",
+    "severity": "MEDIUM",
+    "vendor": "Meddiff Technologies",
+    "affected_products": ["InstaRISPACS software"],
+    "affected_versions": [
+      "Version 3.0.0",
+      "Version 4.0.0 Build 29 and prior",
+      "Version 5.0.0 Build 19 and prior"
+    ],
+    "cve_ids": ["CVE-2024-2259"],
+    "solution": "Users of versions 4.0.0 and 5.0.0 should apply the hotfix. Users of version 3.0.0 should upgrade to the latest version and then apply the hotfix.",
+    "date": "2024-08-13"
   },
   {
     "id": "003",
-    "title": "Third Advisory Document",
-    "description": "Third sample record",
-    "category": "analysis"
+    "note_id": "CIVN-2024-0226",
+    "title": "Multiple Vulnerabilities in Apache HTTP Server",
+    "severity": "MEDIUM",
+    "vendor": "Apache",
+    "affected_products": ["Apache HTTP Server"],
+    "affected_versions": [
+      "Versions 2.4.60 through 2.4.61",
+      "Versions 2.4.0 through 2.4.61"
+    ],
+    "cve_ids": [
+      "CVE-2024-40898",
+      "CVE-2024-40725"
+    ],
+    "solution": "Apply the appropriate security updates recommended by Apache.",
+    "date": "2024-07-30"
+  },
+  {
+    "id": "004",
+    "note_id": "CIVN-2024-0080",
+    "title": "Information Disclosure Vulnerability in CDAC USB Pratirodh",
+    "severity": "HIGH",
+    "vendor": "CDAC-Hyderabad",
+    "affected_products": ["USB Pratirodh"],
+    "affected_versions": ["Version 3.1.2 and prior"],
+    "cve_ids": ["CVE-2024-1224"],
+    "solution": "Upgrade USB Pratirodh to version 3.1.3 or later.",
+    "date": "2024-03-04"
+  },
+  {
+    "id": "005",
+    "note_id": "CIVN-2024-0260",
+    "title": "Privilege escalation vulnerability in Microsoft Windows Kernel",
+    "severity": "HIGH",
+    "vendor": "Microsoft",
+    "affected_products": [
+      "Windows 10",
+      "Windows 11",
+      "Windows Server 2016",
+      "Windows Server 2019",
+      "Windows Server 2022"
+    ],
+    "affected_versions": [
+      "Windows 10: 1607, 1809, 21H2, 22H2",
+      "Windows 11: 21H2, 22H2, 23H2, 24H2",
+      "Windows Server 2016",
+      "Windows Server 2019",
+      "Windows Server 2022, including 23H2 Edition"
+    ],
+    "cve_ids": ["CVE-2024-38106"],
+    "solution": "Apply the appropriate security updates provided in the Microsoft security advisory.",
+    "date": "2024-08-22"
   }
 ]
