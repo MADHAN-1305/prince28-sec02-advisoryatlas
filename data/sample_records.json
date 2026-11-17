@@ -1,0 +1,510 @@
+[
+  {
+    "id": "001",
+    "note_id": "CIVN-2023-0280",
+    "title": "Multiple Vulnerabilities in Google Chrome for Desktop",
+    "severity": "HIGH",
+    "vendor": "Google Chrome",
+    "affected_products": [
+      "Google Chrome for Desktop"
+    ],
+    "affected_versions": [
+      "Versions prior to 117.0.5938.132 (for Windows, Mac and Linux)"
+    ],
+    "cve_ids": [
+      "CVE-2023-5217",
+      "CVE-2023-5186",
+      "CVE-2023-5187"
+    ],
+    "solution": "Apply appropriate updates as mentioned by the vendor: https://chromereleases.googleblog.com/2023/09/stable-channel-update-for-desktop_27.html",
+    "date": "2023-09-29"
+  },
+  {
+    "id": "002",
+    "note_id": "CIVN-2024-0003",
+    "title": "Multiple Vulnerabilities in Google Chrome for Desktop",
+    "severity": "HIGH",
+    "vendor": "Google Chrome",
+    "affected_products": [
+      "Google Chrome for Desktop"
+    ],
+    "affected_versions": [
+      "Versions prior to 120.0.6099.199 (for Mac and Linux)",
+      "Versions prior to 120.0.6099.199/200 (for Windows)"
+    ],
+    "cve_ids": [
+      "CVE-2024-0222",
+      "CVE-2024-0223",
+      "CVE-2024-0224",
+      "CVE-2024-0225"
+    ],
+    "solution": "Apply appropriate updates as mentioned by the vendor: https://chromereleases.googleblog.com/2024/01/stable-channel-update-for-desktop.html",
+    "date": "2024-01-09"
+  },
+  {
+    "id": "003",
+    "note_id": "CIVN-2024-0240",
+    "title": "Multiple Vulnerabilities in Google Chrome",
+    "severity": "HIGH",
+    "vendor": "Google Chrome",
+    "affected_products": [
+      "Google Chrome"
+    ],
+    "affected_versions": [
+      "Versions prior to 127.0.6533.99/.100 for Windows and Mac",
+      "Versions prior to 127.0.6533.99 for Linux"
+    ],
+    "cve_ids": [
+      "CVE-2024-7533",
+      "CVE-2024-7534",
+      "CVE-2024-7532",
+      "CVE-2024-7535",
+      "CVE-2024-7536",
+      "CVE-2024-7550"
+    ],
+    "solution": "Apply appropriate updates as mentioned by Vendor: https://chromereleases.googleblog.com/2024/08/stable-channel-update-for-desktop.html",
+    "date": "2024-08-13"
+  },
+  {
+    "id": "004",
+    "note_id": "CIVN-2025-0324",
+    "title": "Privilege Escalation vulnerability in Windows Kernel",
+    "severity": "HIGH",
+    "vendor": "Microsoft",
+    "affected_products": [
+      "Windows 10",
+      "Windows 11",
+      "Windows Server 2019",
+      "Windows Server 2022",
+      "Windows Server 2025",
+      "Windows Server 2022, 23H2 (Server Core installation)"
+    ],
+    "affected_versions": [
+      "Windows 10 version 1809: 10.0.17763.0 before 10.0.17763.8027",
+      "Windows 10 version 21H2: 10.0.19044.0 before 10.0.19044.6575",
+      "Windows 10 version 22H2: 10.0.19045.0 before 10.0.19045.6575",
+      "Windows 11 version 25H2: 10.0.26200.0 before 10.0.26200.7171",
+      "Windows 11 version 22H3: 10.0.22631.0 before 10.0.22631.6199",
+      "Windows 11 version 23H2: 10.0.22631.0 before 10.0.22631.6199",
+      "Windows 11 version 24H2: 10.0.26100.0 before 10.0.26100.7171",
+      "Windows Server 2019: 10.0.17763.0 before 10.0.17763.8027",
+      "Windows Server 2019 (Server Core installation): 10.0.17763.0 before 10.0.17763.8027",
+      "Windows Server 2022: 10.0.20348.0 before 10.0.20348.4405",
+      "Windows Server 2025: 10.0.26100.0 before 10.0.26100.7171",
+      "Windows Server 2025 (Server Core installation): 10.0.26100.0 before 10.0.26100.7171",
+      "Windows Server 2022, 23H2 (Server Core installation): 10.0.25398.0 before 10.0.25398.1965"
+    ],
+    "cve_ids": [
+      "CVE-2025-62215"
+    ],
+    "solution": "Apply appropriate updates as mentioned by Microsoft: https://msrc.microsoft.com/update-guide/en-US/advisory/CVE-2025-62215",
+    "date": "2025-11-18"
+  },
+  {
+    "id": "005",
+    "note_id": "CIVN-2026-0552",
+    "title": "Remote Code Execution Vulnerability in Git",
+    "severity": "CRITICAL",
+    "vendor": "GitHub",
+    "affected_products": [
+      "Git"
+    ],
+    "affected_versions": [
+      "Git 2.56.x versions prior to 2.56.1",
+      "Git 2.55.x versions prior to 2.55.1",
+      "Git 2.54.x versions prior to 2.54.1",
+      "Git 2.53.x versions prior to 2.53.1",
+      "Git 2.52.x versions prior to 2.52.1",
+      "Git 2.51.x versions prior to 2.51.3",
+      "Git 2.50.x versions prior to 2.50.2"
+    ],
+    "cve_ids": [
+      "CVE-2026-105437",
+      "CVE-2026-114466",
+      "CVE-2026-111760",
+      "CVE-2026-113408",
+      "CVE-2026-114467",
+      "CVE-2026-114469"
+    ],
+    "solution": "Apply appropriate security updates and mitigations as recommended by the vendor: https://github.blog/open-source/git/git-security-vulnerabilities-announced-7/",
+    "date": "2026-11-16"
+  },
+  {
+    "id": "006",
+    "note_id": "CIVN-2026-0551",
+    "title": "Multiple Vulnerabilities in SonicWall GMS",
+    "severity": "CRITICAL",
+    "vendor": "SonicWall",
+    "affected_products": [
+      "SonicWall Global Management System (GMS)"
+    ],
+    "affected_versions": [
+      "Versions 9.5.2 and earlier, including Virtual Appliance and Windows deployments"
+    ],
+    "cve_ids": [
+      "CVE-2026-109593",
+      "CVE-2026-109594"
+    ],
+    "solution": "The affected product has reached End-of-Life and the vendor will no longer provide patches. Migrate to the latest supported version. https://psirt.global.sonicwall.com/vuln-detail/SNWLID-2026-0019",
+    "date": "2026-11-16"
+  },
+  {
+    "id": "007",
+    "note_id": "CIVN-2026-0550",
+    "title": "Multiple Vulnerabilities in Barracuda Products",
+    "severity": "HIGH",
+    "vendor": "Barracuda",
+    "affected_products": [
+      "Email Security Gateway (ESG)",
+      "Load Balancer Application Delivery Controller (ADC)",
+      "Message Archiver (BMA)",
+      "WAF Control Center (WCC)",
+      "Web Application Firewall (WAF)",
+      "Web Security Gateway (WSG)"
+    ],
+    "affected_versions": [
+      "ESG versions prior to 9.4.017+ and versions prior to 9.4.017",
+      "ADC versions prior to BNADC-16586",
+      "BMA versions prior to BNMA-32468",
+      "WCC versions prior to BNWF-60060",
+      "WAF versions prior to BNADC-16586",
+      "WSG versions prior to BNYF-24789"
+    ],
+    "cve_ids": [
+      "CVE-2026-116606",
+      "CVE-2026-111560"
+    ],
+    "solution": "Apply appropriate updates as mentioned by the vendor: https://trust.barracuda.com/security/pre-authentication-authorization-bypass-command-injection",
+    "date": "2026-11-13"
+  },
+  {
+    "id": "008",
+    "note_id": "CIVN-2026-0549",
+    "title": "Information Disclosure Vulnerability in eMudhra emBridge",
+    "severity": "LOW",
+    "vendor": "eMudhra",
+    "affected_products": [
+      "eMudhra emBridge for Windows",
+      "eMudhra emBridge for macOS (x64)",
+      "eMudhra emBridge for Ubuntu (x64)",
+      "eMudhra emBridge for Red Hat (x64)"
+    ],
+    "affected_versions": [
+      "Windows: versions 5.9.1.x to 5.9.3.x",
+      "macOS (x64): versions 3.2.4.x to 3.2.6.x",
+      "Ubuntu (x64): versions 3.2.0.x to 3.3.0.x",
+      "Red Hat (x64): versions 3.2.0.x to 3.3.0.x"
+    ],
+    "cve_ids": [
+      "CVE-2026-125659"
+    ],
+    "solution": "Upgrade emBridge for Windows to 5.9.4.x or later, macOS (x64) to 3.2.7.x or later, and Ubuntu/Red Hat (x64) to 3.3.1.x or later. https://emudhra.com/en/post/cve-2026-125659",
+    "date": "2026-11-13"
+  },
+  {
+    "id": "009",
+    "note_id": "CIVN-2026-0548",
+    "title": "Multiple Vulnerabilities in Mozilla Products",
+    "severity": "HIGH",
+    "vendor": "Mozilla",
+    "affected_products": [
+      "Mozilla Firefox",
+      "Mozilla Firefox ESR",
+      "Mozilla Firefox for iOS",
+      "Mozilla Thunderbird"
+    ],
+    "affected_versions": [
+      "Firefox versions prior to 160",
+      "Firefox ESR versions prior to 115.45",
+      "Firefox ESR versions prior to 153.7",
+      "Firefox for iOS versions prior to 160.0",
+      "Thunderbird versions prior to 160",
+      "Thunderbird versions prior to 153.7"
+    ],
+    "cve_ids": [],
+    "solution": "Apply appropriate updates as mentioned by the vendor: https://www.mozilla.org/en-US/security/advisories/mfsa2026-124/ ; https://www.mozilla.org/en-US/security/advisories/mfsa2026-125/ ; https://www.mozilla.org/en-US/security/advisories/mfsa2026-126/ ; https://www.mozilla.org/en-US/security/advisories/mfsa2026-127/ ; https://www.mozilla.org/en-US/security/advisories/mfsa2026-128/ ; https://www.mozilla.org/en-US/security/advisories/mfsa2026-129/",
+    "date": "2026-11-13"
+  },
+  {
+    "id": "010",
+    "note_id": "CIVN-2026-0547",
+    "title": "Multiple Vulnerabilities in Ivanti Connect Secure (ICS)",
+    "severity": "HIGH",
+    "vendor": "Ivanti",
+    "affected_products": [
+      "Ivanti Connect Secure (ICS)"
+    ],
+    "affected_versions": [
+      "Version 25.1.1.2 and prior",
+      "Version 22.8R2.5 and prior"
+    ],
+    "cve_ids": [
+      "CVE-2026-111357",
+      "CVE-2026-118527",
+      "CVE-2026-104935"
+    ],
+    "solution": "Apply appropriate security updates and mitigations as recommended by the vendor: https://hub.ivanti.com/s/article/Security-Advisory-Ivanti-Connect-Secure-CVE-2026-104935?language=en_US",
+    "date": "2026-11-12"
+  },
+  {
+    "id": "011",
+    "note_id": "CIVN-2026-0546",
+    "title": "Authorization Bypass Vulnerability in IBM Aspera Faspex",
+    "severity": "CRITICAL",
+    "vendor": "IBM",
+    "affected_products": [
+      "IBM Aspera Faspex"
+    ],
+    "affected_versions": [
+      "Versions 5.0.0 to 5.0.19"
+    ],
+    "cve_ids": [
+      "CVE-2026-123218"
+    ],
+    "solution": "Apply appropriate security updates as mentioned by the vendor: https://www.ibm.com/support/pages/node/7295921",
+    "date": "2026-11-12"
+  },
+  {
+    "id": "012",
+    "note_id": "CIVN-2026-0545",
+    "title": "Remote Code Execution Vulnerability in WordPress",
+    "severity": "HIGH",
+    "vendor": "WordPress",
+    "affected_products": [
+      "WordPress Core"
+    ],
+    "affected_versions": [
+      "Versions 4.7.0 through 7.1.3, including versions prior to the fixed releases 4.7.39, 4.8.34, 4.9.35, 5.0.31, 5.1.28, 5.2.30, 5.3.27, 5.4.25, 5.5.24, 5.6.23, 5.7.21, 5.8.19, 5.9.20, 6.0.18, 6.1.16, 6.2.15, 6.3.14, 6.4.14, 6.5.14, 6.6.11, 6.7.11, 6.8.12, 6.9.11, 7.0.8, and 7.1.4"
+    ],
+    "cve_ids": [
+      "CVE-2026-119977"
+    ],
+    "solution": "Apply appropriate fixes and patches as mentioned by the vendor: https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-470-713-unauthenticated-upgrade-window-staged-installer-remote-code-execution?asset_slug=wordpress",
+    "date": "2026-11-12"
+  },
+  {
+    "id": "013",
+    "note_id": "CIVN-2026-0544",
+    "title": "Multiple Vulnerabilities in Google Chrome",
+    "severity": "CRITICAL",
+    "vendor": "Google",
+    "affected_products": [
+      "Google Chrome",
+      "Google Chrome Extended Stable"
+    ],
+    "affected_versions": [
+      "Google Chrome versions prior to 157.0.8103.50",
+      "Google Chrome Extended Stable versions prior to 156.0.8078.96"
+    ],
+    "cve_ids": [
+      "CVE-2026-125350",
+      "CVE-2026-125346",
+      "CVE-2026-125344",
+      "CVE-2026-125348",
+      "CVE-2026-125347",
+      "CVE-2026-125343",
+      "CVE-2026-125345",
+      "CVE-2026-125342",
+      "CVE-2026-125349"
+    ],
+    "solution": "Apply appropriate updates as mentioned by the vendor: https://chromereleases.googleblog.com/2026/11/stable-channel-update-for-desktop_018223192.html",
+    "date": "2026-11-10"
+  },
+  {
+    "id": "014",
+    "note_id": "CIVN-2026-0543",
+    "title": "Remote Code Execution Vulnerability in Cisco UCS Central Software",
+    "severity": "HIGH",
+    "vendor": "Cisco",
+    "affected_products": [
+      "Cisco UCS Central Software"
+    ],
+    "affected_versions": [
+      "Versions 2.0 and earlier",
+      "Version 2.1 prior to 2.1(2c)"
+    ],
+    "cve_ids": [
+      "CVE-2026-76506"
+    ],
+    "solution": "Apply appropriate updates as mentioned by the vendor: https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-cucs-rce-LzHSFRDQ",
+    "date": "2026-11-10"
+  },
+  {
+    "id": "015",
+    "note_id": "CIVN-2026-0542",
+    "title": "Authentication Bypass Vulnerability in OpenSSH",
+    "severity": "CRITICAL",
+    "vendor": "OpenSSH",
+    "affected_products": [
+      "OpenSSH"
+    ],
+    "affected_versions": [
+      "Versions prior to 10.6p2"
+    ],
+    "cve_ids": [
+      "CVE-2026-123158"
+    ],
+    "solution": "Apply appropriate updates as mentioned by the vendor: https://www.openssh.org/txt/release-10.6p2",
+    "date": "2026-11-06"
+  },
+  {
+    "id": "016",
+    "note_id": "CIVN-2026-0541",
+    "title": "Multiple Vulnerabilities in Drupal Modules",
+    "severity": "CRITICAL",
+    "vendor": "Drupal",
+    "affected_products": [
+      "Reset Password Email/SMS OTP",
+      "Commerce Product Alternative",
+      "Highlight Js syntax highlighter",
+      "REST & JSON API Authentication for Drupal",
+      "Workflow Notifications",
+      "Simple OAuth (OAuth2) & OpenID Connect",
+      "S3 File System CORS Upload",
+      "Content Synchronizer",
+      "GroupEx PRO (Daxko) integration"
+    ],
+    "affected_versions": [
+      "Reset Password Email/SMS OTP prior to 1.0.5",
+      "Commerce Product Alternative prior to 1.0.1",
+      "Highlight Js syntax highlighter prior to 1.3.1",
+      "REST & JSON API Authentication for Drupal prior to 3.2.1",
+      "Workflow Notifications prior to 3.0.3",
+      "Simple OAuth prior to 5.2.6, from 6.0.0 to 6.0.9 and from 6.1.1 to 6.1.3",
+      "S3 File System CORS Upload prior to 8.x-1.3",
+      "Content Synchronizer prior to 4.1.1",
+      "GroupEx PRO (Daxko) integration prior to 2.2.1"
+    ],
+    "cve_ids": [
+      "CVE-2026-122074",
+      "CVE-2026-122070",
+      "CVE-2026-122068",
+      "CVE-2026-122067",
+      "CVE-2026-122066",
+      "CVE-2026-122058",
+      "CVE-2026-122057",
+      "CVE-2026-118547",
+      "CVE-2026-118565"
+    ],
+    "solution": "Upgrade to the latest versions as mentioned in the vendor advisories: https://www.drupal.org/sa-contrib-2026-305 ; https://www.drupal.org/sa-contrib-2026-301 ; https://www.drupal.org/sa-contrib-2026-299 ; https://www.drupal.org/sa-contrib-2026-298 ; https://www.drupal.org/sa-contrib-2026-297 ; https://www.drupal.org/sa-contrib-2026-296 ; https://www.drupal.org/sa-contrib-2026-295 ; https://www.drupal.org/sa-contrib-2026-293 ; https://www.drupal.org/sa-contrib-2026-278",
+    "date": "2026-11-06"
+  },
+  {
+    "id": "017",
+    "note_id": "CIVN-2026-0540",
+    "title": "Multiple Vulnerabilities in Drupal Products",
+    "severity": "CRITICAL",
+    "vendor": "Drupal",
+    "affected_products": [
+      "AI module",
+      "Commerce Core",
+      "Commerce Stripe",
+      "OAuth2 Token Manager",
+      "OAuth Login - OAuth OIDC SSO",
+      "Single Content Sync",
+      "Stage File Proxy"
+    ],
+    "affected_versions": [
+      "AI versions prior to 1.4.11 and 1.5.2",
+      "Commerce Core versions prior to 2.41 and 3.3.13",
+      "Commerce Stripe versions from 2.0.0 before 2.2.3",
+      "OAuth2 Token Manager prior to 1.2.0",
+      "OAuth Login - OAuth OIDC SSO prior to 3.1.1",
+      "Single Content Sync prior to 1.4.19",
+      "Stage File Proxy prior to 3.1.7 and 4.0.1"
+    ],
+    "cve_ids": [
+      "CVE-2026-118539",
+      "CVE-2026-118549",
+      "CVE-2026-118558",
+      "CVE-2026-118561",
+      "CVE-2026-118562",
+      "CVE-2026-118563",
+      "CVE-2026-118564",
+      "CVE-2026-118565",
+      "CVE-2026-118572",
+      "CVE-2026-118573",
+      "CVE-2026-118575",
+      "CVE-2026-118576"
+    ],
+    "solution": "Apply appropriate updates as mentioned by the vendor: https://www.drupal.org/sa-contrib-2026-290 ; https://www.drupal.org/sa-contrib-2026-286 ; https://www.drupal.org/sa-contrib-2026-285 ; https://www.drupal.org/sa-contrib-2026-284 ; https://www.drupal.org/sa-contrib-2026-278 ; https://www.drupal.org/sa-contrib-2026-277 ; https://www.drupal.org/sa-contrib-2026-276 ; https://www.drupal.org/sa-contrib-2026-275 ; https://www.drupal.org/sa-contrib-2026-274 ; https://www.drupal.org/sa-contrib-2026-269 ; https://www.drupal.org/sa-contrib-2026-263 ; https://www.drupal.org/sa-contrib-2026-254",
+    "date": "2026-11-06"
+  },
+  {
+    "id": "018",
+    "note_id": "CIVN-2026-0539",
+    "title": "Use-After-Free Vulnerability in Linux Kernel",
+    "severity": "CRITICAL",
+    "vendor": "Linux",
+    "affected_products": [
+      "Linux Kernel"
+    ],
+    "affected_versions": [
+      "Linux kernel versions 4.4 and later",
+      "5.10.x prior to 5.10.272",
+      "5.15.x prior to 5.15.223",
+      "6.1.x prior to 6.1.190",
+      "6.6.x prior to 6.6.159",
+      "6.12.x prior to 6.12.113",
+      "6.18.x prior to 6.18.56",
+      "7.2.x prior to 7.2.10",
+      "Versions prior to 7.3"
+    ],
+    "cve_ids": [
+      "CVE-2026-98432"
+    ],
+    "solution": "Apply the appropriate kernel updates: https://git.kernel.org/stable/c/b3b027ef0cd322bfa839b9aaf5b27551eea54cf6 ; https://git.kernel.org/stable/c/95a8c8fa9f27dce64c40c41c062de7728bf34ab5 ; https://git.kernel.org/stable/c/89b5b1eb7d633c33832b7ff2c02e19a144705036 ; https://git.kernel.org/stable/c/742f73df544e03744f2981c467d6542fe8172a2a ; https://git.kernel.org/stable/c/11a03ce3c4a62d84c10ccdfe47f8075006498568 ; https://git.kernel.org/stable/c/a47406c769f72c070386985488f1c4d057df86b2 ; https://git.kernel.org/stable/c/26d4c36d318cffbbd160884a0e4cec0da4da4936 ; https://git.kernel.org/stable/c/e3f33b0a1d89d738e2b913dab519226eaf76e15b",
+    "date": "2026-11-06"
+  },
+  {
+    "id": "019",
+    "note_id": "CIVN-2026-0538",
+    "title": "Elevation of Privilege Vulnerability in ASP.NET Core",
+    "severity": "HIGH",
+    "vendor": "Microsoft",
+    "affected_products": [
+      ".NET 11.0",
+      " .NET 10.0",
+      ".NET 9.0",
+      ".NET 8.0",
+      "ASP.NET Core runtime and targeting-pack Linux tarballs",
+      " .NET source-build Linux tarballs"
+    ],
+    "affected_versions": [
+      ".NET 11.0 prior to 11.0.100-rc.3",
+      " .NET 10.0 prior to 10.0.403",
+      " .NET 9.0 prior to 9.0.320",
+      " .NET 8.0 prior to 8.0.427",
+      "ASP.NET Core runtime and targeting-pack Linux tarballs prior to 9.0.22",
+      " .NET source-build Linux tarballs prior to 10.0.403-servicing.26523.112"
+    ],
+    "cve_ids": [
+      "CVE-2026-114148"
+    ],
+    "solution": "Upgrade to the fixed versions specified in the Microsoft security update: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114148",
+    "date": "2026-11-06"
+  },
+  {
+    "id": "020",
+    "note_id": "CIVN-2026-0537",
+    "title": "Multiple Vulnerabilities in Tata Motors iRA and iRA.ev Application",
+    "severity": "HIGH",
+    "vendor": "Tata Motors",
+    "affected_products": [
+      "Tata Motors iRA 2.0",
+      "Tata Motors iRA.ev"
+    ],
+    "affected_versions": [
+      "iRA 2.0 versions 26.7.3 and below",
+      "iRA.ev versions 26.7.2 and below"
+    ],
+    "cve_ids": [
+      "CVE-2026-121144",
+      "CVE-2026-121145",
+      "CVE-2026-121146",
+      "CVE-2026-121147"
+    ],
+    "solution": "Upgrade Tata Motors iRA 2.0 to version 26.8.2 and iRA.ev to version 26.9.1.",
+    "date": "2026-11-04"
+  }
+]
