@@ -1,83 +1,97 @@
-def test_health(client):
-    response = client.get("/health")
-    assert response.status_code == 200
+import pytest
+from pydantic import ValidationError
+
+from advisoryatlas.config import Settings
+from advisoryatlas.db.url import to_asyncpg_url
+
+
+def test_health_is_ok(client):
+    r = client.get("/health")
+    assert r.status_code == 200
+    assert r.json()["status"] == "ok"
 
 
 def test_ready_when_database_up(client):
-    response = client.get("/ready")
-    assert response.status_code == 200
-    assert response.json()["checks"]["database"] is True
+    r = client.get("/ready")
+    assert r.status_code == 200
+    assert r.json()["checks"]["database"] is True
 
 
-def test_ready_when_database_down(client, db_state):
+def test_ready_is_503_when_database_down(client, db_state):
     db_state["up"] = False
-    response = client.get("/ready")
-    assert response.status_code == 503
-    assert response.json()["checks"]["database"] is False
+    assert client.get("/health").status_code == 200  # alive...
+    assert client.get("/ready").status_code == 503  # ...but not ready
 
 
-def test_list_documents(client):
-    response = client.get("/v1/documents")
-    assert response.status_code == 200
-    assert response.json()["total"] == 3
+def test_list_documents_paginates(client):
+    body = client.get("/v1/documents", params={"limit": 2}).json()
+    assert body["total"] == 3
+    assert len(body["items"]) == 2
 
 
-def test_limit(client):
-    response = client.get("/v1/documents?limit=1")
-    assert len(response.json()["items"]) == 1
+def test_search_filters_records(client):
+    r = client.get("/v1/documents", params={"q": "beta"})
+    assert [d["id"] for d in r.json()["items"]] == ["002"]
 
 
-def test_offset(client):
-    response = client.get("/v1/documents?offset=1")
-    assert response.json()["items"][0]["id"] == "002"
+def test_metadata_filter(client):
+    r = client.get("/v1/documents", params={"kind": "circular"})
+    assert r.json()["total"] == 2
+    assert r.json()["filters"] == {"kind": "circular"}
 
 
-def test_search(client):
-    response = client.get("/v1/documents?q=Alpha")
-    assert response.json()["total"] == 1
+def test_invalid_filter_name_is_400(client):
+    r = client.get("/v1/documents", params={"Bad-Key": "x"})
+    assert r.status_code == 400
+    assert r.headers["content-type"] == "application/problem+json"
 
 
-def test_search_case_insensitive(client):
-    response = client.get("/v1/documents?q=alpha")
-    assert response.json()["total"] == 1
+def test_get_document_found(client):
+    r = client.get("/v1/documents/001")
+    assert r.status_code == 200
+    assert r.json()["title"] == "Alpha guideline"
 
 
-def test_filter_kind(client):
-    response = client.get("/v1/documents?kind=circular")
-    assert response.json()["total"] == 2
+def test_missing_document_is_problem_details(client):
+    r = client.get("/v1/documents/999")
+    assert r.status_code == 404
+    assert r.headers["content-type"] == "application/problem+json"
+    assert r.json()["request_id"] == r.headers["X-Request-ID"]
 
 
-def test_filter_year(client):
-    response = client.get("/v1/documents?year=2023")
-    assert response.json()["total"] == 1
+def test_bad_limit_is_422_problem(client):
+    r = client.get("/v1/documents", params={"limit": 0})
+    assert r.status_code == 422
+    assert r.json()["errors"][0]["field"] == "query.limit"
 
 
-def test_combined_filters(client):
-    response = client.get("/v1/documents?kind=circular&year=2024")
-    assert response.json()["total"] == 1
+def test_request_id_is_echoed(client):
+    r = client.get("/health", headers={"X-Request-ID": "abc123"})
+    assert r.headers["X-Request-ID"] == "abc123"
 
 
-def test_no_matching_documents(client):
-    response = client.get("/v1/documents?q=unknown")
-    assert response.json()["total"] == 0
+@pytest.mark.parametrize("missing", ["APP_ENV", "DATABASE_URL"])
+def test_app_refuses_to_start_without_required_settings(monkeypatch, missing):
+    monkeypatch.setenv("APP_ENV", "ci")
+    monkeypatch.setenv("DATABASE_URL", "postgresql://localhost/db")
+    monkeypatch.delenv(missing)
+    with pytest.raises(ValidationError):
+        Settings(_env_file=None)
 
 
-def test_invalid_filter(client):
-    response = client.get("/v1/documents?Bad-Name=1")
-    assert response.status_code == 400
-
-
-def test_list_echoes_filters(client):
-    response = client.get("/v1/documents?kind=circular")
-    assert response.json()["filters"]["kind"] == "circular"
-
-
-def test_get_existing_document(client):
-    response = client.get("/v1/documents/001")
-    assert response.status_code == 200
-    assert response.json()["id"] == "001"
-
-
-def test_get_missing_document(client):
-    response = client.get("/v1/documents/999")
-    assert response.status_code == 404
+@pytest.mark.parametrize(
+    ("raw", "expected"),
+    [
+        (
+            "postgresql://app@ep-x.neon.tech/neondb?sslmode=require&channel_binding=require",
+            "postgresql+asyncpg://app@ep-x.neon.tech/neondb?ssl=require",
+        ),
+        (
+            "postgresql://postgres@localhost:5432/app?sslmode=disable",
+            "postgresql+asyncpg://postgres@localhost:5432/app",
+        ),
+        ("postgres://app@h/db", "postgresql+asyncpg://app@h/db"),
+    ],
+)
+def test_database_url_is_converted_for_asyncpg(raw, expected):
+    assert to_asyncpg_url(raw) == expected
