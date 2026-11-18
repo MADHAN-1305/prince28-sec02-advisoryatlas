@@ -17,7 +17,8 @@
       "CVE-2023-5187"
     ],
     "solution": "Apply appropriate updates as mentioned by the vendor: https://chromereleases.googleblog.com/2023/09/stable-channel-update-for-desktop_27.html",
-    "date": "2023-09-29"
+    "date": "2023-09-29",
+    "source_url": "https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2023-0280&pageid=PUBVLNOTES01"
   },
   {
     "id": "002",
@@ -39,7 +40,8 @@
       "CVE-2024-0225"
     ],
     "solution": "Apply appropriate updates as mentioned by the vendor: https://chromereleases.googleblog.com/2024/01/stable-channel-update-for-desktop.html",
-    "date": "2024-01-09"
+    "date": "2024-01-09",
+    "source_url": "https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2024-0003&pageid=PUBVLNOTES01"
   },
   {
     "id": "003",
@@ -63,7 +65,8 @@
       "CVE-2024-7550"
     ],
     "solution": "Apply appropriate updates as mentioned by Vendor: https://chromereleases.googleblog.com/2024/08/stable-channel-update-for-desktop.html",
-    "date": "2024-08-13"
+    "date": "2024-08-13",
+    "source_url": "https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2024-0240&pageid=PUBVLNOTES01"
   },
   {
     "id": "004",
@@ -98,7 +101,8 @@
       "CVE-2025-62215"
     ],
     "solution": "Apply appropriate updates as mentioned by Microsoft: https://msrc.microsoft.com/update-guide/en-US/advisory/CVE-2025-62215",
-    "date": "2025-11-18"
+    "date": "2025-11-18",
+    "source_url": "https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2025-0324&pageid=PUBVLNOTES01"
   },
   {
     "id": "005",
@@ -127,7 +131,8 @@
       "CVE-2026-114469"
     ],
     "solution": "Apply appropriate security updates and mitigations as recommended by the vendor: https://github.blog/open-source/git/git-security-vulnerabilities-announced-7/",
-    "date": "2026-11-16"
+    "date": "2026-11-16",
+    "source_url": "https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2026-0552&pageid=PUBVLNOTES01"
   },
   {
     "id": "006",
@@ -146,7 +151,8 @@
       "CVE-2026-109594"
     ],
     "solution": "The affected product has reached End-of-Life and the vendor will no longer provide patches. Migrate to the latest supported version. https://psirt.global.sonicwall.com/vuln-detail/SNWLID-2026-0019",
-    "date": "2026-11-16"
+    "date": "2026-11-16",
+    "source_url": "https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2026-0551&pageid=PUBVLNOTES01"
   },
   {
     "id": "007",
@@ -175,7 +181,8 @@
       "CVE-2026-111560"
     ],
     "solution": "Apply appropriate updates as mentioned by the vendor: https://trust.barracuda.com/security/pre-authentication-authorization-bypass-command-injection",
-    "date": "2026-11-13"
+    "date": "2026-11-13",
+    "source_url": "https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2026-0550&pageid=PUBVLNOTES01"
   },
   {
     "id": "008",
@@ -199,7 +206,8 @@
       "CVE-2026-125659"
     ],
     "solution": "Upgrade emBridge for Windows to 5.9.4.x or later, macOS (x64) to 3.2.7.x or later, and Ubuntu/Red Hat (x64) to 3.3.1.x or later. https://emudhra.com/en/post/cve-2026-125659",
-    "date": "2026-11-13"
+    "date": "2026-11-13",
+    "source_url": "https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2026-0549&pageid=PUBVLNOTES01"
   },
   {
     "id": "009",
@@ -223,7 +231,8 @@
     ],
     "cve_ids": [],
     "solution": "Apply appropriate updates as mentioned by the vendor: https://www.mozilla.org/en-US/security/advisories/mfsa2026-124/ ; https://www.mozilla.org/en-US/security/advisories/mfsa2026-125/ ; https://www.mozilla.org/en-US/security/advisories/mfsa2026-126/ ; https://www.mozilla.org/en-US/security/advisories/mfsa2026-127/ ; https://www.mozilla.org/en-US/security/advisories/mfsa2026-128/ ; https://www.mozilla.org/en-US/security/advisories/mfsa2026-129/",
-    "date": "2026-11-13"
+    "date": "2026-11-13",
+    "source_url": "https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2026-0548&pageid=PUBVLNOTES01"
   },
   {
     "id": "010",
@@ -244,7 +253,8 @@
       "CVE-2026-104935"
     ],
     "solution": "Apply appropriate security updates and mitigations as recommended by the vendor: https://hub.ivanti.com/s/article/Security-Advisory-Ivanti-Connect-Secure-CVE-2026-104935?language=en_US",
-    "date": "2026-11-12"
+    "date": "2026-11-12",
+    "source_url": "https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2026-0547&pageid=PUBVLNOTES01"
   },
   {
     "id": "011",
@@ -262,7 +272,8 @@
       "CVE-2026-123218"
     ],
     "solution": "Apply appropriate security updates as mentioned by the vendor: https://www.ibm.com/support/pages/node/7295921",
-    "date": "2026-11-12"
+    "date": "2026-11-12",
+    "source_url": "https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2026-0546&pageid=PUBVLNOTES01"
   },
   {
     "id": "012",
@@ -280,7 +291,8 @@
       "CVE-2026-119977"
     ],
     "solution": "Apply appropriate fixes and patches as mentioned by the vendor: https://www.wordfence.com/threat-intel/vulnerabilities/wordpress-core/wordpress-core-470-713-unauthenticated-upgrade-window-staged-installer-remote-code-execution?asset_slug=wordpress",
-    "date": "2026-11-12"
+    "date": "2026-11-12",
+    "source_url": "https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2026-0545&pageid=PUBVLNOTES01"
   },
   {
     "id": "013",
@@ -308,7 +320,8 @@
       "CVE-2026-125349"
     ],
     "solution": "Apply appropriate updates as mentioned by the vendor: https://chromereleases.googleblog.com/2026/11/stable-channel-update-for-desktop_018223192.html",
-    "date": "2026-11-10"
+    "date": "2026-11-10",
+    "source_url": "https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2026-0544&pageid=PUBVLNOTES01"
   },
   {
     "id": "014",
@@ -327,7 +340,8 @@
       "CVE-2026-76506"
     ],
     "solution": "Apply appropriate updates as mentioned by the vendor: https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-cucs-rce-LzHSFRDQ",
-    "date": "2026-11-10"
+    "date": "2026-11-10",
+    "source_url": "https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2026-0543&pageid=PUBVLNOTES01"
   },
   {
     "id": "015",
@@ -345,7 +359,8 @@
       "CVE-2026-123158"
     ],
     "solution": "Apply appropriate updates as mentioned by the vendor: https://www.openssh.org/txt/release-10.6p2",
-    "date": "2026-11-06"
+    "date": "2026-11-06",
+    "source_url": "https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2026-0542&pageid=PUBVLNOTES01"
   },
   {
     "id": "016",
@@ -387,7 +402,8 @@
       "CVE-2026-118565"
     ],
     "solution": "Upgrade to the latest versions as mentioned in the vendor advisories: https://www.drupal.org/sa-contrib-2026-305 ; https://www.drupal.org/sa-contrib-2026-301 ; https://www.drupal.org/sa-contrib-2026-299 ; https://www.drupal.org/sa-contrib-2026-298 ; https://www.drupal.org/sa-contrib-2026-297 ; https://www.drupal.org/sa-contrib-2026-296 ; https://www.drupal.org/sa-contrib-2026-295 ; https://www.drupal.org/sa-contrib-2026-293 ; https://www.drupal.org/sa-contrib-2026-278",
-    "date": "2026-11-06"
+    "date": "2026-11-06",
+    "source_url": "https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2026-0541&pageid=PUBVLNOTES01"
   },
   {
     "id": "017",
@@ -428,7 +444,8 @@
       "CVE-2026-118576"
     ],
     "solution": "Apply appropriate updates as mentioned by the vendor: https://www.drupal.org/sa-contrib-2026-290 ; https://www.drupal.org/sa-contrib-2026-286 ; https://www.drupal.org/sa-contrib-2026-285 ; https://www.drupal.org/sa-contrib-2026-284 ; https://www.drupal.org/sa-contrib-2026-278 ; https://www.drupal.org/sa-contrib-2026-277 ; https://www.drupal.org/sa-contrib-2026-276 ; https://www.drupal.org/sa-contrib-2026-275 ; https://www.drupal.org/sa-contrib-2026-274 ; https://www.drupal.org/sa-contrib-2026-269 ; https://www.drupal.org/sa-contrib-2026-263 ; https://www.drupal.org/sa-contrib-2026-254",
-    "date": "2026-11-06"
+    "date": "2026-11-06",
+    "source_url": "https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2026-0540&pageid=PUBVLNOTES01"
   },
   {
     "id": "018",
@@ -454,7 +471,8 @@
       "CVE-2026-98432"
     ],
     "solution": "Apply the appropriate kernel updates: https://git.kernel.org/stable/c/b3b027ef0cd322bfa839b9aaf5b27551eea54cf6 ; https://git.kernel.org/stable/c/95a8c8fa9f27dce64c40c41c062de7728bf34ab5 ; https://git.kernel.org/stable/c/89b5b1eb7d633c33832b7ff2c02e19a144705036 ; https://git.kernel.org/stable/c/742f73df544e03744f2981c467d6542fe8172a2a ; https://git.kernel.org/stable/c/11a03ce3c4a62d84c10ccdfe47f8075006498568 ; https://git.kernel.org/stable/c/a47406c769f72c070386985488f1c4d057df86b2 ; https://git.kernel.org/stable/c/26d4c36d318cffbbd160884a0e4cec0da4da4936 ; https://git.kernel.org/stable/c/e3f33b0a1d89d738e2b913dab519226eaf76e15b",
-    "date": "2026-11-06"
+    "date": "2026-11-06",
+    "source_url": "https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2026-0539&pageid=PUBVLNOTES01"
   },
   {
     "id": "019",
@@ -482,11 +500,12 @@
       "CVE-2026-114148"
     ],
     "solution": "Upgrade to the fixed versions specified in the Microsoft security update: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-114148",
-    "date": "2026-11-06"
+    "date": "2026-11-06",
+    "source_url": "https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2026-0538&pageid=PUBVLNOTES01"
   },
   {
     "id": "020",
-    "note_id": "CIVN-2026-0537",
+    "note_id": "CIVN-2026-053",
     "title": "Multiple Vulnerabilities in Tata Motors iRA and iRA.ev Application",
     "severity": "HIGH",
     "vendor": "Tata Motors",
@@ -505,6 +524,7 @@
       "CVE-2026-121147"
     ],
     "solution": "Upgrade Tata Motors iRA 2.0 to version 26.8.2 and iRA.ev to version 26.9.1.",
-    "date": "2026-11-04"
+    "date": "2026-11-04",
+    "source_url": "https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2026-0537&pageid=PUBVLNOTES01"
   }
 ]
