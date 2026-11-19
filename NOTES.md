@@ -77,3 +77,196 @@ The table has only 20 records, so PostgreSQL considers checking all records chea
 **When would it switch to the GIN index?**
 
 When the table becomes larger and PostgreSQL estimates that using the index is cheaper than scanning every record.
+## D04 · Docker and Testing
+### Docker image
+First Docker build:
+Time: 9.4 seconds
+Result: SUCCESS (20/20 steps finished)
+
+Image: advisoryatlas:dev
+Image ID: 5fa55c4c8840
+Disk usage: 300 MB
+Content size: 70 MB
+Second Docker build:
+Time: 12.9 seconds
+Result: SUCCESS (20/20 steps finished)
+### Docker Compose status
+
+Command: docker compose ps
+
+API: Up (healthy)
+PostgreSQL: Up (healthy)
+Redis: Up (healthy)
+
+All 3 containers are running successfully.
+### Docker migration logs
+
+Command: docker compose logs migrate
+
+Migrations completed:
+- Created documents and pages.
+- Added GIN index on metadata.
+
+First loader run:
+records=20 inserted=20 updated=0 unchanged=0
+
+Second loader run:
+records=20 inserted=0 updated=0 unchanged=20
+
+Result: Migrations and loader completed successfully.
+### Database stop and recovery
+
+Command: docker compose stop db
+
+Result: PostgreSQL stopped successfully.
+
+Command: docker compose start db
+
+Result: PostgreSQL started successfully.
+
+Verification: docker compose ps
+
+PostgreSQL: Up (healthy)
+API: Up (healthy)
+Redis: Up (healthy)
+
+Result: Database recovered successfully without recreating the container.
+### Unit test results
+
+Command: uv run poe test
+
+Test folder: tests/unit
+Result: 16 passed, 0 failed
+Execution time: 0.41 seconds
+
+Status: All unit tests passed.
+### Integration test results
+
+Command: uv run poe test-integration
+
+Test folder: tests/integration
+Result: 7 passed, 0 failed
+Execution time: 4.22 seconds
+
+Status: All integration tests passed.
+### Unit test coverage
+
+Command: uv run poe cov
+
+Total coverage: 83%
+Statements: 254
+Missing statements: 36
+
+Tests: 16 passed, 7 skipped
+Execution time: 3.78 seconds
+
+Coverage report: 10 files skipped due to complete coverage.
+### Integration test coverage
+
+Command: uv run pytest tests/integration --cov=advisoryatlas --cov-report=term-missing
+
+TEST_DATABASE_URL: Set to local app_test database.
+
+Total coverage: 85%
+Statements: 254
+Missing statements: 29
+
+Tests: 7 passed, 0 failed
+Execution time: 5.33 seconds
+
+Coverage report: 8 files skipped due to complete coverage.
+### Explanation of uncovered lines
+
+The integration-only coverage is 85%.
+The combined unit and integration coverage is 96%.
+
+The combined report shows 9 uncovered statements.
+These represent code paths not executed by the combined test suite.
+### Non-root Docker verification
+
+Command: docker run --rm advisoryatlas:dev id
+
+Output:
+uid=999(app) gid=999(app) groups=999(app)
+
+Result: Container runs as the non-root app user, not root.
+
+### Docker build cache
+
+Docker reused these layers (marked CACHED in build output):
+- Copying uv binaries.
+- Setting the working directory.
+- Creating the non-root app user.
+### API health and readiness verification
+
+With PostgreSQL running:
+
+Command: Invoke-RestMethod http://localhost:8000/health
+
+Output:
+status: ok
+app: advisoryatlas
+env: local
+
+Command: Invoke-RestMethod http://localhost:8000/ready
+
+Output:
+status: ready
+database: True
+
+With PostgreSQL stopped:
+
+Command: docker compose stop db
+
+Result: PostgreSQL stopped successfully.
+
+Command: Invoke-RestMethod http://localhost:8000/health
+
+Output:
+status: ok
+
+Command: Invoke-RestMethod http://localhost:8000/ready
+
+Output:
+status: not_ready
+database: False
+
+With PostgreSQL restarted:
+
+Command: docker compose start db
+
+Result: PostgreSQL started successfully.
+
+Command: Invoke-RestMethod http://localhost:8000/ready
+
+Output:
+status: ready
+database: True
+
+Result:
+The API remains healthy when the database stops, readiness detects database failure, and readiness returns to ready after database recovery.
+
+### Combined test coverage
+
+Command:
+$env:TEST_DATABASE_URL = "postgresql://app:YOUR_PASSWORD@localhost:5433/app_test" # pragma: allowlist secret
+uv run --active pytest tests/unit tests/integration --cov=advisoryatlas --cov-report=term-missing
+
+Results:
+Total coverage: 96%
+Statements: 254
+Missing statements: 9
+Tests: 23 passed
+Execution time: 7.30 seconds
+
+Result: Combined coverage exceeded the expected approximately 92%.
+
+### Examples of uncovered code and their impact
+
+1. API database dependency (deps.py, lines 37-38):
+The exception handler returns False when a database connection fails or times out. This prevents a database failure from crashing the health-check process. Its behaviour was verified by stopping PostgreSQL and checking /ready.
+
+2. API middleware (middleware.py, lines 22-24):
+The exception handler logs unexpected errors and returns a clean HTTP 500 response with a request ID. This helps protect internal error details and supports troubleshooting.
+
+These uncovered paths are defensive error-handling code. Their absence from automated coverage does not necessarily indicate a defect.
