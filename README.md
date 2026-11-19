@@ -49,3 +49,86 @@ Then open http://localhost:8000/docs
 uv run pytest
 uv run ruff check .
 ```
+
+Run the integration tests against the Compose Postgres:
+
+```bash
+docker compose up -d
+uv run poe test-integration
+```
+
+The integration tests create a temporary `test_<id>` database and drop it when the run finishes.
+
+## Run locally in one command
+
+You need Docker Desktop running. From a fresh clone:
+
+```bash
+docker compose up --build
+```
+
+This starts Postgres (with pgvector), Redis, runs the migrations and loads the sample data once, then starts the API.
+
+- API docs: [http://localhost:8000/docs](http://localhost:8000/docs)
+- Liveness: [http://localhost:8000/health](http://localhost:8000/health)
+- Readiness (checks the database): [http://localhost:8000/ready](http://localhost:8000/ready)
+
+Stop with `Ctrl+C`, then `docker compose down`. Add `-v` to also delete the database volume.
+
+## Develop and test
+
+| Task | Mac / Linux | Windows |
+|---|---|---|
+| Run the API with reload | `make dev` | `uv run poe dev` |
+| Unit tests (no network) | `make test` | `uv run poe test` |
+| Integration tests (needs `docker compose up`) | `make test-integration` | `uv run poe test-integration` |
+| Coverage report | `make cov` | `uv run poe cov` |
+| Lint and format check | `make lint` | `uv run poe lint` |
+
+## D04 · Docker, Compose and tests
+
+### The image
+
+```text
+Paste the output of:
+docker images advisoryatlas:dev
+
+Paste the output of:
+docker run --rm advisoryatlas:dev
+```
+
+- Size: ___ MB (target: under 400 MB)
+- First build: ___ s. After changing one line of code: ___ s.
+- Which step said CACHED, and why? (1 line, your own words)
+
+### The stack
+
+```text
+Paste the output of:
+docker compose ps -a
+
+Paste the last line of:
+docker compose logs migrate
+(first up, then after down + up)
+```
+
+### Breaking the database on purpose
+
+```text
+db stopped: /health → paste
+db stopped: /ready → paste
+db started: /ready → paste
+```
+
+Why should a load balancer stop sending traffic here but not restart the app? (2 lines)
+
+### Tests and coverage
+
+```text
+uv run poe test              → paste the last line
+uv run poe test-integration  → paste the last line
+coverage TOTAL, unit only    → paste
+coverage TOTAL, with integration tests → paste
+```
+
+Two files or lines my coverage report says are never run, and whether they matter: (2 lines)
