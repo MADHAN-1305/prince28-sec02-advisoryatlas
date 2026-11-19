@@ -85,50 +85,94 @@ Stop with `Ctrl+C`, then `docker compose down`. Add `-v` to also delete the data
 | Coverage report | `make cov` | `uv run poe cov` |
 | Lint and format check | `make lint` | `uv run poe lint` |
 
+
 ## D04 · Docker, Compose and tests
+
 
 ### The image
 
 ```text
-Paste the output of:
-docker images advisoryatlas:dev
+Image: advisoryatlas:dev
+Image ID: 5fa55c4c8840
+Disk usage: 300 MB
+Content size: 70 MB
+Target: under 400 MB — passed.
 
-Paste the output of:
-docker run --rm advisoryatlas:dev
+First build: 9.4 seconds — SUCCESS (20/20 steps).
+Second build: 12.9 seconds — SUCCESS (20/20 steps).
+
+Non-root verification:
+Command: docker run --rm advisoryatlas:dev id
+Output: uid=999(app) gid=999(app) groups=999(app)
+Result: Container runs as non-root user.
+
+Docker build cache:
+- Copying uv binaries.
+- Setting the working directory.
+- Creating the non-root app user.
 ```
-
-- Size: ___ MB (target: under 400 MB)
-- First build: ___ s. After changing one line of code: ___ s.
-- Which step said CACHED, and why? (1 line, your own words)
 
 ### The stack
 
-```text
-Paste the output of:
-docker compose ps -a
+Command: `docker compose ps -a`
 
-Paste the last line of:
-docker compose logs migrate
-(first up, then after down + up)
+```text
+API: Up (healthy)
+PostgreSQL: Up (healthy)
+Redis: Up (healthy)
+Migration: Completed successfully (exit code 0).
 ```
+
+Migration logs confirmed:
+- Created documents and pages.
+- Added GIN index on metadata.
+- First loader run: 20 inserted.
+- Second loader run: 20 unchanged.
 
 ### Breaking the database on purpose
 
 ```text
-db stopped: /health → paste
-db stopped: /ready → paste
-db started: /ready → paste
+With PostgreSQL running:
+ /health → status: ok
+ /ready  → status: ready, database: True
+
+With PostgreSQL stopped:
+ /health → status: ok
+ /ready  → status: not_ready, database: False
+
+After PostgreSQL restarted:
+ /ready  → status: ready, database: True
 ```
 
-Why should a load balancer stop sending traffic here but not restart the app? (2 lines)
+Result: The API remains healthy when the database stops. Readiness detects database failure and returns to ready after recovery.
+
+A load balancer should stop sending traffic to an instance that is not ready.
+Restarting the application does not fix a temporarily unavailable database.
 
 ### Tests and coverage
 
 ```text
-uv run poe test              → paste the last line
-uv run poe test-integration  → paste the last line
-coverage TOTAL, unit only    → paste
-coverage TOTAL, with integration tests → paste
+Unit tests:
+Command: uv run poe test
+Result: 16 passed, 0 failed
+Coverage: 83%
+
+Integration tests:
+Command: uv run poe test-integration
+Result: 7 passed, 0 failed
+Coverage: 85%
+
+Combined unit and integration tests:
+Result: 23 passed
+Total coverage: 96%
+Statements: 254
+Missing statements: 9
 ```
 
-Two files or lines my coverage report says are never run, and whether they matter: (2 lines)
+### Explanation of uncovered code
+
+1. `deps.py`, lines 37–38: Handles database connection failures and timeouts. Its behaviour was verified by stopping PostgreSQL and checking `/ready`.
+
+2. `middleware.py`, lines 22–24: Handles unexpected errors, logs them and returns HTTP 500 with a request ID. This supports troubleshooting and avoids exposing internal error details.
+
+These are defensive error-handling paths. Their absence from automated coverage does not necessarily indicate a defect.
