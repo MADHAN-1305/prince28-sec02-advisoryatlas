@@ -1,9 +1,14 @@
-
 # AdvisoryAtlas
 
-AdvisoryAtlas answers the question "Am I affected?" using CERT-In advisories and vulnerability notes. It identifies the affected product versions, provides the relevant note ID, and explains the recommended fix.
+[![CI](https://github.com/MADHAN-1305/prince28-sec02-advisoryatlas/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/MADHAN-1305/prince28-sec02-advisoryatlas/actions/workflows/ci.yml)
+[![Live](https://img.shields.io/website?url=https%3A%2F%2Fadvisoryatlas.onrender.com%2Fhealth&label=live)](https://advisoryatlas.onrender.com/docs)
+[![AdvisoryAtlas Status](https://badge.uptimerobot.com/psp/0672484862af001e65175e125622b19a.svg?style=logo&theme=light)](https://stats.uptimerobot.com/kZCO9kIPKH)
 
-**Status:** Day 1 foundation (FastAPI skeleton, quality gates). Live URL from Day 5.
+**Status:** Week 1 complete · live at https://advisoryatlas.onrender.com
+
+**Live:** [Application](https://advisoryatlas.onrender.com) · [API docs](https://advisoryatlas.onrender.com/docs) · [Health](https://advisoryatlas.onrender.com/health) · [Readiness](https://advisoryatlas.onrender.com/ready)
+
+AdvisoryAtlas answers the question "Am I affected?" using CERT-In advisories and vulnerability notes. It identifies the affected product versions, provides the relevant note ID, and explains the recommended fix.
 
 ## Who it's for
 
@@ -85,9 +90,7 @@ Stop with `Ctrl+C`, then `docker compose down`. Add `-v` to also delete the data
 | Coverage report | `make cov` | `uv run poe cov` |
 | Lint and format check | `make lint` | `uv run poe lint` |
 
-
 ## D04 · Docker, Compose and tests
-
 
 ### The image
 
@@ -124,6 +127,7 @@ Migration: Completed successfully (exit code 0).
 ```
 
 Migration logs confirmed:
+
 - Created documents and pages.
 - Added GIN index on metadata.
 - First loader run: 20 inserted.
@@ -133,21 +137,20 @@ Migration logs confirmed:
 
 ```text
 With PostgreSQL running:
- /health → status: ok
- /ready  → status: ready, database: True
+/health → status: ok
+/ready  → status: ready, database: True
 
 With PostgreSQL stopped:
- /health → status: ok
- /ready  → status: not_ready, database: False
+/health → status: ok
+/ready  → status: not_ready, database: False
 
 After PostgreSQL restarted:
- /ready  → status: ready, database: True
+/ready  → status: ready, database: True
 ```
 
 Result: The API remains healthy when the database stops. Readiness detects database failure and returns to ready after recovery.
 
-A load balancer should stop sending traffic to an instance that is not ready.
-Restarting the application does not fix a temporarily unavailable database.
+A load balancer should stop sending traffic to an instance that is not ready. Restarting the application does not fix a temporarily unavailable database.
 
 ### Tests and coverage
 
