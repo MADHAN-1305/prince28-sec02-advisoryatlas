@@ -270,3 +270,99 @@ The exception handler returns False when a database connection fails or times ou
 The exception handler logs unexpected errors and returns a clean HTTP 500 response with a request ID. This helps protect internal error details and supports troubleshooting.
 
 These uncovered paths are defensive error-handling code. Their absence from automated coverage does not necessarily indicate a defect.
+
+## D05 · Production Deployment, Monitoring and Rollback
+
+### GitHub Actions CI
+
+Repository:
+https://github.com/MADHAN-1305/prince28-sec02-advisoryatlas
+
+Workflow: `.github/workflows/ci.yml`
+
+Verification:
+- Lint and test: PASSED
+- Build image: PASSED
+- Unit tests: 25 passed
+- Code coverage: 92%
+
+### Production deployment
+
+Platform: Render
+
+Production URL:
+https://advisoryatlas.onrender.com
+
+API documentation:
+https://advisoryatlas.onrender.com/docs
+
+Health endpoint:
+https://advisoryatlas.onrender.com/health
+
+Readiness endpoint:
+https://advisoryatlas.onrender.com/ready
+
+Deployment verification:
+- Docker image deployed from GitHub Container Registry.
+- Production health endpoint returned HTTP 200.
+- Readiness endpoint returned HTTP 200.
+- Database readiness check: True.
+- Documents API returned HTTP 200.
+- Production smoke test: PASSED.
+
+Final deployed commit:
+`ae29a4db5f3b36ee4158d47467144072e044442a`
+
+### Uptime monitoring
+
+Service: UptimeRobot
+
+Monitor:
+- Type: HTTP(S)
+- URL: `https://advisoryatlas.onrender.com/health`
+- Interval: 5 minutes
+- Request method: HEAD
+- Monitor status: UP
+
+A public status page was created and linked through a README badge.
+
+Public status page:
+https://stats.uptimerobot.com/kZCO9kIPKH
+
+### Health endpoint verification
+
+Production GET request:
+`Invoke-RestMethod https://advisoryatlas.onrender.com/health`
+
+Result:
+- Status: ok
+- App: advisoryatlas
+- Environment: production
+- Version: `ae29a4db5f3b36ee4158d47467144072e044442a`
+
+GET and HEAD requests both returned HTTP 200.
+
+### Rollback and restoration drill
+
+Procedure:
+1. Manually deployed the previous production image using the CD workflow.
+2. Verified the previous version through the production smoke test.
+3. Triggered another manual CD deployment using the latest main commit.
+4. Verified that the latest version was restored.
+
+Rollback version:
+`a36fc5771ac6a20d1c90aba521c9e0b4fbad2747`
+
+Restored version:
+`ae29a4db5f3b36ee4158d47467144072e044442a`
+
+Final verification:
+- `/health`: HTTP 200
+- `/ready`: HTTP 200
+- Database: True
+- `/v1/documents?limit=1`: HTTP 200
+- Smoke test: PASSED
+
+Manual PowerShell verification confirmed the restored production version.
+
+Result: Rollback and restoration drill completed successfully.
