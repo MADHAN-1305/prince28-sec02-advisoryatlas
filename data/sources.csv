@@ -1,0 +1,16 @@
+# Sources for AdvisoryAtlas. One row per document. Lines starting with # are notes.
+# Start target: 300 vulnerability notes from the last 12 months.
+# Where to look: https://www.cert-in.org.in/ (Advisories and Vulnerability Notes).
+# Permission is NOT established for automated download/storage/reproduction.
+# Before any permitted fetch, honor site rules and use --delay 2 at a minimum.
+url,source,licence,title
+https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIAD-2026-0059&pageid=PUBVLNOTES02,cert-in,CERT-In public notice; reproduction requires permission; cite note ID and source,CIAD-2026-0059 Multiple Vulnerabilities in Microsoft Products - Nov 2026
+https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2026-0555&pageid=PUBVLNOTES01,cert-in,CERT-In public notice; reproduction requires permission; cite note ID and source,CIVN-2026-0555 Multiple Vulnerabilities in Fortinet Products - Nov 2026
+https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2026-0424&pageid=PUBVLNOTES01,cert-in,CERT-In public notice; reproduction requires permission; cite note ID and source,CIVN-2026-0424 Multiple vulnerabilities in Fortinet Products - Aug 2026
+https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2026-0557&pageid=PUBVLNOTES01,cert-in,CERT-In public notice; reproduction requires permission; cite note ID and source,CIVN-2026-0557 Multiple Vulnerabilities in C-DAC e-Sushrut HMIS - Nov 2026
+https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2026-0207&pageid=PUBVLNOTES01,cert-in,CERT-In public notice; reproduction requires permission; cite note ID and source,CIVN-2026-0207 Multiple Vulnerabilities in C-DAC e-Sushrut Solution - Apr 2026
+https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2026-0231&pageid=PUBVLNOTES01,cert-in,CERT-In public notice; reproduction requires permission; cite note ID and source,CIVN-2026-0231 Multiple Vulnerabilities in Microsoft Products - May 2026
+https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2026-0564&pageid=PUBVLNOTES01,cert-in,CERT-In public notice; reproduction requires permission; cite note ID and source,CIVN-2026-0564 Multiple Vulnerabilities in VMware Products - Nov 2026
+https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2026-0560&pageid=PUBVLNOTES01,cert-in,CERT-In public notice; reproduction requires permission; cite note ID and source,CIVN-2026-0560 Multiple Vulnerabilities in Citrix NetScaler - Nov 2026
+https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2026-0568&pageid=PUBVLNOTES01,cert-in,CERT-In public notice; reproduction requires permission; cite note ID and source,CIVN-2026-0568 Multiple Vulnerabilities in Oracle Products - Nov 2026
+https://www.cert-in.org.in/s2cMainServlet?VLCODE=CIVN-2026-0565&pageid=PUBVLNOTES01,cert-in,CERT-In public notice; reproduction requires permission; cite note ID and source,CIVN-2026-0565 Multiple Vulnerabilities in Microsoft Office SharePoint - Nov 2026
