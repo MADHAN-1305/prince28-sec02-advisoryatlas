@@ -366,3 +366,201 @@ Final verification:
 Manual PowerShell verification confirmed the restored production version.
 
 Result: Rollback and restoration drill completed successfully.
+## D06 · Collecting the corpus
+
+- **Start target:** 300 CERT-In vulnerability notes (last 12 months).
+- **Collected today:** 10 files, 15 pages, 0.8 MB (from DATASET.md).
+- **Source registry:** 57 URLs (56 vulnerability notes and 1 advisory).
+- **Doors used:** URL list (Door 1).
+- **Current status:** 300-document start target not yet reached.
+
+### Licence check
+
+| Source | Licence or terms, in my words | May I show full text in answers? |
+|---|---|---|
+| CERT-In | Public government cybersecurity notices. Reproduction requires permission and proper attribution to CERT-In. | No, not without permission. Use original summaries, advisory IDs and source links instead. |
+
+### robots.txt
+
+- **Site:** https://www.cert-in.org.in/
+- **robots.txt:** Its contents could not be reliably confirmed. The downloader checked the endpoint, but automated collection permission remains unverified.
+- **Blocked requests:** The initial download reported 0 blocked requests out of 10. No restrictions were bypassed.
+- **Politeness:** Used a 3-second delay in the interruption and resume test. The project requires at least 2 seconds between requests.
+
+### Kill and resume
+
+- **Run 1:** I pressed Ctrl+C after 7 files.
+- **Run 2:** downloaded=3, skipped=7.
+- **Run 3:** downloaded=0, skipped=10.
+- **Incomplete files:** No `.part` files remained.
+- **Manifest:** 10 entries were recorded.
+
+The downloader successfully resumed without fetching completed files again. Temporary `.part` files and the manifest help prevent incomplete downloads from being treated as completed documents.
+
+### Capacity (from docs/CAPACITY.md)
+
+- **Tokens per page, reported:** 750.
+- **Full corpus target:** 1,500+ notes and advisories (3+ years).
+- **Estimated tokens:** 1.74 million.
+- **Estimated chunks:** 4,997.
+- **One-time embedding cost:** Approximately ₹28.
+- **Estimated vector storage:** 15 MB.
+- **Estimated PostgreSQL text storage:** 8 MB.
+- **Estimated raw storage:** 116 MB.
+
+### The number that surprised me most
+
+The estimated embedding cost for 1,500 documents is only ₹28, making initial processing affordable.
+
+However, this estimate is based on just 10 files, so a larger representative sample is needed for more reliable capacity planning.
+
+### One thing that went wrong today, and how I fixed it
+
+Git initially refused a commit because `.pre-commit-config.yaml` had unstaged modifications.
+
+I fixed the issue by staging the configuration file and retrying the commit. All pre-commit checks subsequently passed.
+
+### Known limitations
+
+- Only 10 documents were measured against the 300-note start target.
+- The source registry contains 57 URLs, but these are not equivalent to 57 downloaded documents.
+- Automated collection and storage permissions for CERT-In remain unconfirmed.
+- Further verified documents and authorization are needed before expanding collection.
+### Day 7 - Parsing quality observations
+
+- Successfully parsed all 10 available HTML advisory files.
+- Extracted 21 pages in 11.8 seconds.
+- No parsing failures were reported.
+- Verified stored documents and pages using Neon SQL Editor.
+
+#### Identified parsing issues
+
+- Document titles are generic, such as "Vulnerability".
+- Section headings are empty in the inspected pages.
+- Extracted text contains navigation links and website footers.
+
+#### Future improvements
+
+- Extract the actual advisory title.
+- Improve section heading detection.
+- Remove website navigation and footer content.
+- Expand the corpus to at least 20 files for further validation.
+### Day 7 - Full corpus parsing and failure analysis
+
+- Successfully parsed 10 out of 10 available files.
+- Total extracted pages: 21.
+- Full corpus parsing command executed twice.
+- 0 failures out of 10 files.
+- Verified the parse_failures table using Neon SQL Editor.
+- No failed files required repair or retry.
+- Manual content comparison is required to assess parsing quality.
+
+## D07 · Parser comparison
+
+<!-- parsers:start -->
+| File | Parsers (A / B) | Pages | A found | B found | Time (A / B) | Better, why |
+|---|---|---|---|---|---|---|
+| s2cmainservlet-2ec087d1.html | trafilatura / strip tags | 1 | 2,251 chars, 0 headings, 0 tables | 5,927 chars, 0 headings, 0 tables | 0.88 s / 0.00 s | Trafilatura preferred: preserves affected versions and removes navigation clutter. |
+| s2cmainservlet-2ac4b1a3.html | trafilatura / strip tags | 2 | 3,125 chars, 0 headings, 0 tables | 4,859 chars, 0 headings, 0 tables | 0.11 s / 0.00 s | A preferred provisionally: more compact extraction |
+| s2cmainservlet-d862f0df.html | trafilatura / strip tags | 3 | 3,683 chars, 0 headings, 0 tables | 5,828 chars, 0 headings, 0 tables | 0.11 s / 0.00 s | A preferred provisionally: reduced text volume |
+| s2cmainservlet-1c3ef068.html | trafilatura / strip tags | 3 | 4,548 chars, 0 headings, 0 tables | 6,022 chars, 0 headings, 0 tables | 0.09 s / 0.00 s | Trafilatura is cleaner but misses the separate affected software list. |
+| s2cmainservlet-142979be.html | trafilatura / strip tags | 3 | 3,299 chars, 0 headings, 0 tables | 5,541 chars, 0 headings, 0 tables | 0.08 s / 0.00 s | A preferred provisionally: significant text reduction |
+| s2cmainservlet-09e93a67.html | trafilatura / strip tags | 1 | 2,375 chars, 0 headings, 0 tables | 4,223 chars, 0 headings, 0 tables | 0.09 s / 0.00 s | A preferred provisionally: concise extraction |
+| s2cmainservlet-4189bf22.html | trafilatura / strip tags | 3 | 4,682 chars, 0 headings, 0 tables | 6,036 chars, 0 headings, 0 tables | 0.15 s / 0.00 s | Trafilatura is cleaner but misses the separate affected system list. |
+| s2cmainservlet-37491826.html | trafilatura / strip tags | 1 | 2,522 chars, 0 headings, 0 tables | 4,024 chars, 0 headings, 0 tables | 0.11 s / 0.00 s | A preferred provisionally: shorter extraction |
+| s2cmainservlet-d3612498.html | trafilatura / strip tags | 3 | 3,311 chars, 0 headings, 0 tables | 4,994 chars, 0 headings, 0 tables | 0.09 s / 0.00 s | A preferred provisionally: reduced text volume |
+| s2cmainservlet-3e2e5828.html | trafilatura / strip tags | 1 | 2,907 chars, 0 headings, 0 tables | 4,610 chars, 0 headings, 0 tables | 0.09 s / 0.00 s | A preferred provisionally: compact extraction |
+<!-- parsers:end -->
+
+### Comparison findings
+
+- Compared all 10 available HTML documents.
+- Trafilatura extracted fewer characters in all 10 files.
+- Plain tag-stripping was faster.
+- Neither parser detected structured headings or tables.
+- Trafilatura is provisionally preferred for HTML extraction.
+- Manual content verification is needed to confirm that important
+  advisory information has not been lost.
+- PDF comparison was not possible because the current corpus
+  contains no PDF documents.
+
+
+### Manual parser comparison findings
+
+- Compared all 10 available HTML files.
+- Manually inspected 3 original HTML documents against
+  their corresponding extracted pages in Neon.
+- Advisory IDs, titles, dates and severity ratings
+  were preserved in the inspected documents.
+- Trafilatura reduced navigation and sidebar clutter.
+- Separate affected software lists were missing in
+  two inspected documents.
+- Neither parser detected structured headings or tables.
+- Plain tag-stripping was faster.
+- Trafilatura is provisionally preferred, but affected
+  software extraction requires improvement.
+- The remaining seven verdicts are based on automated
+  measurements rather than manual content verification.
+
+
+  ### D07 · Parsing my corpus
+
+- Files in the parsing run: 10
+- Parsed: 10
+- Failed: 0
+- Pages extracted into Postgres: 21
+- Parsing coverage: 100% of available parser input files
+- Corpus limitation: only 10 HTML advisory files available.
+
+### Failures by reason
+
+| Reason | Files | What I did |
+|---|---|---|
+| None | 0 | Verified using Neon SQL Editor |
+
+- The one I fixed: Not applicable because no parsing failures occurred.
+- Repeated parsing confirmed idempotency:
+  files=10 already_parsed=10 pages=0 seconds=1.4
+
+### What I saw when I read my parsed pages
+
+- Heading path: No correct structured heading path was
+  confirmed in the inspected HTML pages.
+- Something that came out wrong: Separate affected software
+  lists were not visible in the inspected extracted content
+  of CIVN-2026-0557 and CIVN-2026-0207.
+- Document titles were generic, such as "Vulnerability".
+- Tables: Neither parser detected structured tables in
+  the 10 available HTML documents.
+- Advisory IDs, dates, severity ratings and main descriptions
+  were preserved in the inspected documents.
+
+### My parser choice
+
+- For HTML, I provisionally prefer Trafilatura because it
+  extracts more compact content and reduces navigation clutter.
+- For example, s2cmainservlet-2ec087d1.html produced
+  2,251 characters with Trafilatura compared to 5,927
+  characters with plain tag-stripping.
+- Trafilatura took 0.08 to 0.88 seconds per file.
+- For PDFs, PyMuPDF is the configured parser, but comparison
+  against pypdf was not possible because no PDF files
+  were available in the current corpus.
+- HTML documents with separate affected software lists
+  require improved extraction and heading detection.
+
+### One thing that went wrong today, and how I fixed it
+
+- Ruff formatting failed because models.py required formatting.
+- Fixed it using uv run ruff format .
+- Final verification: 53 unit tests passed, all lint checks
+  passed and 48 files were correctly formatted.
+
+### Known gaps
+
+- The original 20-file parsing target remains unmet.
+- PDF parsing quality has not been verified on real corpus files.
+- Seven parser comparison verdicts remain provisional.
+- Structured heading extraction requires improvement.
+- Further corpus collection requires verified sources
+  and appropriate permissions.
