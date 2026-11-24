@@ -7,7 +7,13 @@ from advisoryatlas.config import Settings
 from advisoryatlas.db.models import Document, Page, ParseFailure
 from advisoryatlas.db.session import make_engine, make_sessionmaker
 from advisoryatlas.ingest.parse import ParsedDoc, ParsedPage, ParseError
-from advisoryatlas.ingest.store import document_id, parsed_ids, save_document, save_failure
+from advisoryatlas.ingest.store import (
+    document_id,
+    parsed_ids,
+    refresh_document,
+    save_document,
+    save_failure,
+)
 
 RECORD = {
     "url": "https://example.org/fever.pdf",
@@ -65,3 +71,42 @@ async def test_a_later_success_clears_the_failure(session):
     await save_document(session, RECORD, PARSED)
     assert await session.scalar(select(func.count()).select_from(ParseFailure)) == 0
     assert await session.scalar(select(func.count()).select_from(Page)) == 2
+
+
+async def test_refresh_preserves_document_and_page_ids(session):
+    await save_document(session, RECORD, PARSED)
+
+    original = await session.scalar(select(Document))
+    original_id = original.id
+
+    original_page = await session.scalar(select(Page).where(Page.page_no == 1))
+    original_page_id = original_page.id
+
+    updated = ParsedDoc(
+        parser="pymupdf",
+        kind="pdf",
+        title="Updated Fever Guidelines",
+        pages=[
+            ParsedPage(
+                1,
+                "# Updated Fever Guidelines\n\nUpdated content.",
+                ["Updated Fever Guidelines"],
+            )
+        ],
+    )
+
+    await refresh_document(session, RECORD, updated)
+    await refresh_document(session, RECORD, updated)
+
+    doc = await session.scalar(select(Document))
+    pages = (await session.scalars(select(Page).order_by(Page.page_no))).all()
+
+    assert doc.id == original_id
+    assert doc.title == "Updated Fever Guidelines"
+    assert doc.metadata_["pages"] == 1
+    assert len(pages) == 1
+    assert pages[0].id == original_page_id
+    assert pages[0].headings == ["Updated Fever Guidelines"]
+    assert "Updated content." in pages[0].text
+
+    assert await session.scalar(select(func.count()).select_from(Document)) == 1

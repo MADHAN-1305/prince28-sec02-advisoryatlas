@@ -202,3 +202,60 @@ def test_comments_inside_code_blocks_are_not_headings(tmp_path):
     found, _ = parse.headings_in(doc.pages[0].text)
     assert found == [(1, "Install"), (2, "Next steps")]
     assert doc.title == "Install"
+
+
+def test_cert_in_html_preserves_heading_paths(tmp_path):
+    html_file = tmp_path / "advisory.html"
+
+    paragraphs = "".join(f"<p>{BODY} Paragraph {i}.</p>" for i in range(50))
+
+    html_file.write_text(
+        "<html><body><table><tr><td class='Content'>"
+        "<p>CERT-In Vulnerability Note</p>"
+        "<p>CIVN-2026-0001</p>"
+        "<p>Sample Security Advisory</p>"
+        "<p class='contentTD; verblue'>Overview</p>"
+        f"{paragraphs}"
+        "<p class='contentTD; verblue'>Solution</p>"
+        "<p>Update the affected software.</p>"
+        "</td></tr></table></body></html>",
+        encoding="utf-8",
+    )
+
+    doc = parse_file(html_file)
+    text = "\n".join(p.text for p in doc.pages)
+
+    assert doc.title == "Sample Security Advisory"
+    assert "## Overview" in text
+    assert "## Solution" in text
+    assert "Update the affected software." in text
+    assert len(doc.pages) >= 2
+    assert any("Overview" in p.headings for p in doc.pages[1:])
+
+
+def test_cert_in_ciad_advisory(tmp_path):
+    html_file = tmp_path / "ciad.html"
+
+    html_file.write_text(
+        "<html><body><table><tr><td class='Content'>"
+        "<p>CERT-In Advisory CIAD-2026-0001</p>"
+        "<p>Sample Microsoft Advisory</p>"
+        "<p class='contentTD; verblue'>Software Affected</p>"
+        "<ul><li>Microsoft Windows</li></ul>"
+        "<p class='contentTD; verblue'>Overview</p>"
+        f"<p>{BODY}</p>"
+        "<p class='contentTD; verblue'>Solution</p>"
+        "<p>Install the latest security updates.</p>"
+        "</td></tr></table></body></html>",
+        encoding="utf-8",
+    )
+
+    doc = parse_file(html_file)
+    text = "\n".join(p.text for p in doc.pages)
+
+    assert doc.title == "Sample Microsoft Advisory"
+    assert "CIAD-2026-0001" in text
+    assert "## Software Affected" in text
+    assert "Microsoft Windows" in text
+    assert "## Solution" in text
+    assert "Install the latest security updates." in text

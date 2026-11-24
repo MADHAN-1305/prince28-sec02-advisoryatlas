@@ -49,6 +49,56 @@ async def save_document(session: AsyncSession, record: dict, parsed: ParsedDoc) 
     await session.commit()  # one transaction per file: a crash never leaves half a document
 
 
+async def refresh_document(session: AsyncSession, record: dict, parsed: ParsedDoc) -> None:
+    """Refresh an existing document while preserving its ID."""
+    document = await session.scalar(
+        select(Document).where(
+            Document.external_id == document_id(record["sha256"]),
+            Document.doc_type != "record",
+        )
+    )
+
+    if document is None:
+        await save_document(session, record, parsed)
+        return
+
+    document.title = (parsed.title or record.get("title") or Path(record["path"]).stem)[:500]
+
+    document.metadata_ = {
+        **(document.metadata_ or {}),
+        "parser": parsed.parser,
+        "pages": len(parsed.pages),
+        "tables": sum(p.tables for p in parsed.pages),
+        "chars": sum(len(p.text) for p in parsed.pages),
+    }
+
+    existing_pages = await session.scalars(select(Page).where(Page.document_id == document.id))
+    existing = {page.page_no: page for page in existing_pages}
+
+    for page in parsed.pages:
+        current = existing.pop(page.page_no, None)
+
+        if current is None:
+            session.add(
+                Page(
+                    document_id=document.id,
+                    page_no=page.page_no,
+                    text=page.text,
+                    headings=page.headings,
+                )
+            )
+        else:
+            current.text = page.text
+            current.headings = page.headings
+
+    for obsolete_page in existing.values():
+        await session.delete(obsolete_page)
+
+    await session.execute(delete(ParseFailure).where(ParseFailure.path == record["path"]))
+
+    await session.commit()
+
+
 async def save_failure(session: AsyncSession, record: dict, error: ParseError) -> None:
     """Insert the failure, or count one more attempt if this file failed before."""
     row = {

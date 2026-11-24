@@ -21,6 +21,7 @@ from advisoryatlas.ingest.store import (
     document_id,
     failed_paths,
     parsed_ids,
+    refresh_document,
     save_document,
     save_failure,
 )
@@ -61,7 +62,7 @@ async def run(args: argparse.Namespace) -> int:
         done, failed = await parsed_ids(session), await failed_paths(session)
         todo = []
         for record in records:
-            if document_id(record["sha256"]) in done:
+            if document_id(record["sha256"]) in done and not args.reparse:
                 counts["already_parsed"] += 1
             elif record["path"] in failed and not args.retry_failed:
                 counts["failed_before"] += 1
@@ -71,7 +72,10 @@ async def run(args: argparse.Namespace) -> int:
         for number, record in enumerate(todo[: args.limit or None], start=1):
             try:
                 parsed = await asyncio.to_thread(parse_one, Path(record["path"]), args.ocr)
-                await save_document(session, record, parsed)
+                if args.reparse:
+                    await refresh_document(session, record, parsed)
+                else:
+                    await save_document(session, record, parsed)
                 counts["parsed"] += 1
                 pages += len(parsed.pages)
             except ParseError as error:
@@ -98,6 +102,11 @@ def main() -> int:
     )
     parser.add_argument("--limit", type=int, default=0, help="parse at most N new files")
     parser.add_argument("--retry-failed", action="store_true", help="retry files that failed")
+    parser.add_argument(
+        "--reparse",
+        action="store_true",
+        help="refresh previously parsed documents",
+    )
     parser.add_argument("--ocr", default="", metavar="LANG", help="OCR scanned PDFs, e.g. eng")
     args = parser.parse_args()
     if not MANIFEST.exists():
