@@ -505,62 +505,35 @@ I fixed the issue by staging the configuration file and retrying the commit. All
 
   ### D07 · Parsing my corpus
 
-- Files in the parsing run: 10
+- Files in the manifest: 10
 - Parsed: 10
 - Failed: 0
-- Pages extracted into Postgres: 21
-- Parsing coverage: 100% of available parser input files
-- Corpus limitation: only 10 HTML advisory files available.
+- Pages in Postgres: 17
+- Parsing coverage: 100%
 
 ### Failures by reason
 
-| Reason | Files | What I did |
-|---|---|---|
-| None | 0 | Verified using Neon SQL Editor |
-
-- The one I fixed: Not applicable because no parsing failures occurred.
-- Repeated parsing confirmed idempotency:
-  files=10 already_parsed=10 pages=0 seconds=1.4
+0 failures out of 10 files.
 
 ### What I saw when I read my parsed pages
 
-- Heading path: No correct structured heading path was
-  confirmed in the inspected HTML pages.
-- Something that came out wrong: Separate affected software
-  lists were not visible in the inspected extracted content
-  of CIVN-2026-0557 and CIVN-2026-0207.
-- Document titles were generic, such as "Vulnerability".
-- Tables: Neither parser detected structured tables in
-  the 10 available HTML documents.
-- Advisory IDs, dates, severity ratings and main descriptions
-  were preserved in the inspected documents.
-
-### My parser choice
-
-- For HTML, I provisionally prefer Trafilatura because it
-  extracts more compact content and reduces navigation clutter.
-- For example, s2cmainservlet-2ec087d1.html produced
-  2,251 characters with Trafilatura compared to 5,927
-  characters with plain tag-stripping.
-- Trafilatura took 0.08 to 0.88 seconds per file.
-- For PDFs, PyMuPDF is the configured parser, but comparison
-  against pypdf was not possible because no PDF files
-  were available in the current corpus.
-- HTML documents with separate affected software lists
-  require improved extraction and heading detection.
-
-### One thing that went wrong today, and how I fixed it
-
-- Ruff formatting failed because models.py required formatting.
-- Fixed it using uv run ruff format .
-- Final verification: 53 unit tests passed, all lint checks
-  passed and 48 files were correctly formatted.
+- Correct heading path: Multiple Vulnerabilities in
+  Microsoft Products, page 2, References.
+- Initial issue: CERT-In headings were not extracted
+  correctly, and CIAD advisories were not recognized.
+- Fix: Improved HTML extraction and added support
+  for both CIVN and CIAD formats.
+- Existing pages refreshed while preserving document IDs.
 
 ### Known gaps
 
-- The original 20-file parsing target remains unmet.
-- PDF parsing quality has not been verified on real corpus files.
-- Seven parser comparison verdicts remain provisional.
-- Structured heading extraction requires improvement.
-- Further corpus collection requires verified sources
-  and appropriate permissions.
+- Only 10 files were collected instead of the target 20.
+- The available corpus contains HTML files, not PDFs.
+- Real PDF parser performance was not evaluated.
+
+### Verification
+
+- Unit tests: 55 passed.
+- Integration tests: 11 passed.
+- Ruff lint and formatting: passed.
+- Page numbers and heading paths verified in Neon.

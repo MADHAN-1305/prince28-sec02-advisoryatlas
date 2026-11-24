@@ -13,6 +13,7 @@ from pathlib import Path
 
 import pymupdf
 import trafilatura
+from lxml import html as lxml_html
 from pypdf import PdfReader
 
 TEXT_TYPES = {".md", ".mdx", ".markdown", ".txt", ".rst", ".adoc", ".sgml", ".py"}
@@ -227,14 +228,106 @@ def parse_pdf_pypdf(path: Path) -> ParsedDoc:
 
 
 # ---------- HTML ----------
+CERT_IN_HEADINGS = {
+    "software affected",
+    "affected software",
+    "affected systems",
+    "systems affected",
+    "overview",
+    "description",
+    "solution",
+    "workaround",
+    "references",
+    "vendor information",
+    "cve name",
+    "credit",
+    "disclaimer",
+    "target audience",
+    "risk assessment",
+    "impact assessment",
+}
+
+
+def normalize_html_headings(markdown: str) -> str:
+    """Recognize known advisory section headings."""
+    lines = []
+
+    for line in markdown.splitlines():
+        label = line.strip().strip("*").strip().rstrip(":").lower()
+
+        if label in CERT_IN_HEADINGS:
+            lines.append(f"\n## {label.title()}\n")
+        else:
+            lines.append(line)
+
+    return "\n".join(lines)
+
+
+def extract_cert_in_content(html: str) -> str | None:
+    """Extract the advisory instead of the surrounding website layout."""
+    tree = lxml_html.fromstring(html)
+
+    containers = tree.xpath("//td[@class='Content']")
+
+    for container in containers:
+        content = container.text_content()
+
+        if not re.search(r"CERT-In (?:Vulnerability Note|Advisory)", content):
+            continue
+
+        for element in container.xpath(".//script | .//style"):
+            element.drop_tree()
+
+        for element in container.xpath(".//br"):
+            element.tail = "\n" + (element.tail or "")
+
+        for element in container.xpath(".//p | .//li | .//div"):
+            element.text = "\n" + (element.text or "")
+            element.tail = "\n" + (element.tail or "")
+
+        text = clean_text(container.text_content())
+        text = normalize_html_headings(text)
+
+        return text
+
+    return None
+
+
 def parse_html(path: Path) -> ParsedDoc:
     html = path.read_text(encoding="utf-8", errors="replace")
-    # trafilatura keeps the article and drops menus, footers, scripts and cookie banners
-    markdown = trafilatura.extract(html, output_format="markdown", include_tables=True)
+
+    markdown = extract_cert_in_content(html)
+
+    if not markdown:
+        markdown = trafilatura.extract(
+            html,
+            output_format="markdown",
+            include_tables=True,
+        )
+
     if not markdown or len(markdown) < 40:
-        raise ParseError("empty", "no main content found (a page built by JavaScript?)")
+        raise ParseError("empty", "no main content found")
+
+    if re.search(r"CERT-In (?:Vulnerability Note|Advisory)", markdown):
+        markdown = normalize_html_headings(markdown)
+
+        title_match = re.search(
+            r"(?:CIVN|CIAD)-\d{4}-\d+\s+([^\n]+)",
+            markdown,
+        )
+
+        if title_match:
+            title = title_match.group(1).strip("* ").strip()
+            markdown = f"# {title}\n\n{markdown}"
+
     meta = trafilatura.extract_metadata(html)
-    return finish("trafilatura", "html", (meta.title if meta else "") or "", split_pages(markdown))
+
+    return finish(
+        "trafilatura",
+        "html",
+        (meta.title if meta else "") or "",
+        split_pages(markdown),
+    )
 
 
 # ---------- text files ----------
