@@ -369,10 +369,10 @@ Result: Rollback and restoration drill completed successfully.
 ## D06 · Collecting the corpus
 
 - **Start target:** 300 CERT-In vulnerability notes (last 12 months).
-- **Collected today:** 10 files, 15 pages, 0.8 MB (from DATASET.md).
-- **Source registry:** 57 URLs (56 vulnerability notes and 1 advisory).
+- **Collected today:** 323 files, 425 pages, 24.8 MB (from DATASET.md).
+- **Source registry:** 323 URLs (322 vulnerability notes and 1 advisory).
 - **Doors used:** URL list (Door 1).
-- **Current status:** 300-document start target not yet reached.
+- **Current status:** 322 vulnerability note URLs registered. All 323 files downloaded and measured; document validation and reuse permission remain pending.
 
 ### Licence check
 
@@ -384,8 +384,8 @@ Result: Rollback and restoration drill completed successfully.
 
 - **Site:** https://www.cert-in.org.in/
 - **robots.txt:** Its contents could not be reliably confirmed. The downloader checked the endpoint, but automated collection permission remains unverified.
-- **Blocked requests:** The initial download reported 0 blocked requests out of 10. No restrictions were bypassed.
-- **Politeness:** Used a 3-second delay in the interruption and resume test. The project requires at least 2 seconds between requests.
+- **Blocked requests:** The expanded download reported 0 blocked and 0 failed requests out of 323 sources. No restrictions were bypassed.
+- **Politeness:** Used a 3-second delay in the interruption and resume test. The expanded download used --delay 2 --max-concurrency 1.
 
 ### Kill and resume
 
@@ -393,7 +393,7 @@ Result: Rollback and restoration drill completed successfully.
 - **Run 2:** downloaded=3, skipped=7.
 - **Run 3:** downloaded=0, skipped=10.
 - **Incomplete files:** No `.part` files remained.
-- **Manifest:** 10 entries were recorded.
+- **Manifest:** 10 entries were recorded during the original resume test.
 
 The downloader successfully resumed without fetching completed files again. Temporary `.part` files and the manifest help prevent incomplete downloads from being treated as completed documents.
 
@@ -401,16 +401,16 @@ The downloader successfully resumed without fetching completed files again. Temp
 
 - **Tokens per page, reported:** 750.
 - **Full corpus target:** 1,500+ notes and advisories (3+ years).
-- **Estimated tokens:** 1.74 million.
-- **Estimated chunks:** 4,997.
-- **One-time embedding cost:** Approximately ₹28.
-- **Estimated vector storage:** 15 MB.
-- **Estimated PostgreSQL text storage:** 8 MB.
-- **Estimated raw storage:** 116 MB.
+- **Estimated tokens:** 1.48 million.
+- **Estimated chunks:** 4,254.
+- **One-time embedding cost:** Approximately ₹24.
+- **Estimated vector storage:** 13 MB.
+- **Estimated PostgreSQL text storage:** 7 MB.
+- **Estimated raw storage:** 115 MB.
 
 ### The number that surprised me most
 
-The estimated embedding cost for 1,500 documents is only ₹28, making initial processing affordable.
+The estimated embedding cost for 1,500 documents is only ₹24, making initial processing affordable.
 
 However, this estimate is based on just 10 files, so a larger representative sample is needed for more reliable capacity planning.
 
