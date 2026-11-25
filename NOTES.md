@@ -537,3 +537,165 @@ I fixed the issue by staging the configuration file and retrying the commit. All
 - Integration tests: 11 passed.
 - Ruff lint and formatting: passed.
 - Page numbers and heading paths verified in Neon.
+
+### D08 - English vs Tamil token experiment
+
+- Model: Groq openai/gpt-oss-20b
+- Baseline input tokens: 226
+- English input tokens: 234
+- Tamil input tokens: 248
+- English additional tokens: 8
+- Tamil additional tokens: 22
+- Tamil-to-English ratio: 2.75x
+
+Observation:
+For these messages, Tamil required more tokens than English.
+Both refund questions were correctly declined as off-topic.
+Gemini experienced errors, including HTTP 503.
+Groq fallback successfully handled all three requests.
+### Document-based accuracy testing
+
+- FortiOS affected versions: "I'm not sure."
+- CERT-In advisory ID and fix: "I am not sure."
+- No invented details observed.
+- Both requests used Groq fallback.
+- Limitation: Unable to answer document-specific questions.
+- Week 3 retrieval is needed to address this limitation.
+### D08 - Usage and cost verification
+
+- Date: 2026-11-25
+- Total LLM calls: 26
+- Errors: 11
+- Fallbacks: 14
+- Input tokens: 3540
+- Output tokens: 1489
+- Estimated cost: Rs 0.1135
+- Neon SQL verification: PASS
+- Usage endpoint verification: PASS
+- Circuit breaker verification: PASS
+- Original Gemini configuration restored.
+- Gemini recovery blocked by ReadTimeout.
+- Groq fallback remains operational.
+- No invented details observed in hallucination tests.
+### D08 - Additional accuracy testing
+
+Question 1:
+Are all FortiOS 7.x versions affected by every
+FortiOS vulnerability reported in 2025?
+
+Observation:
+The model correctly answered No, but provided
+unverified firmware version examples and an
+overly confident statement about unlisted versions.
+
+Question 2:
+Does installing the latest FortiOS firmware
+guarantee protection against all known vulnerabilities?
+
+Observation:
+The model correctly answered No.
+
+Conclusion:
+Unsupported details and overconfidence demonstrate
+the need for document-grounded retrieval in Week 3.
+
+### Gemini recovery investigation
+
+- Original model configuration restored.
+- Direct LLM ping returned HTTP 503.
+- Provider explicitly reported high demand.
+- Groq responded successfully in 384 ms.
+- Automatic fallback remains operational.
+- Gemini recovery is blocked by provider availability.
+### D08 - Gemini recovery completed
+
+- Primary model changed to gemini-3.6-flash via .env.
+- Server restarted to load updated configuration.
+- Direct Gemini ping: PASS.
+- Streaming chat: PASS.
+- Fallback: No.
+- First-word latency: 17.75 seconds.
+- Total response time: 19.12 seconds.
+- Input tokens: 184.
+- Output tokens: 91.
+- Reported cost: Rs 0.000000 (pricing needs verification).
+- Gemini recovery: PASS.
+### D08 · LLM gateway
+
+- Original primary: gemini-3.8-flash
+- Current primary: gemini-3.6-flash
+- Fallback: openai/gpt-oss-20b (Groq)
+- First local question:
+  - First words: 24.80 s
+  - Total time: 26.85 s
+  - Input tokens: 184
+  - Output tokens: 104
+  - Cost: Rs 0.050160
+- Live URL latency: Pending deployment.
+- Day 1 target: under 1.5 s.
+
+### Tokens: English against Tamil
+
+| Message | Tokens in |
+|---|---:|
+| Hi (baseline) | 226 |
+| English sentence | 234 |
+| Tamil sentence | 248 |
+
+- English additional tokens: 8
+- Tamil additional tokens: 22
+- Tamil-to-English ratio: 2.75x
+
+### What the model does without my documents
+
+- Hospital firewall question: "I'm not sure."
+- Cricket question: Declined in one sentence.
+- FortiOS questions: Admitted uncertainty.
+- Additional accuracy testing revealed unsupported
+  firmware version examples and overconfidence.
+- No confirmed fabricated advisory ID was observed.
+- Document-grounded retrieval is needed in Week 3.
+
+### Fallback and circuit breaker
+
+- Primary intentionally broken: gemini-no-such-model
+- Fallback provider: Groq
+- Fallback: YES
+- First words: 4.01 s
+- Circuit opened after three failures.
+- Gemini skipped on request number 4.
+- Half-open probe verified on request number 5.
+- Gemini recovery successful using gemini-3.6-flash.
+- Recovery latency: 17.75 s
+- Recovery fallback: No.
+
+### The bill
+
+Initial usage verification:
+- Calls: 26
+- Errors: 11
+- Fallbacks: 14
+- Input tokens: 3540
+- Output tokens: 1489
+- Estimated cost: Rs 0.1135
+- Average per answered question: Pending final measurement.
+- Target: under Rs 0.50.
+- Gemini 3.6 pricing requires verification.
+
+### One thing that went wrong today, and how I fixed it
+
+Gemini returned HTTP 503 and ReadTimeout errors.
+Groq fallback kept the application operational.
+Switched to gemini-3.6-flash using .env and
+restarted the server. Gemini recovered successfully
+without fallback.
+
+### Deployment preparation
+
+- Dockerfile updated to include prompts.
+- API keys configured in Render.
+- Primary model override configured in Render.
+- Local unit tests: 81 passed.
+- Ruff lint: PASS.
+- Formatting: 58 files passed.
+- Live verification: Pending deployment.
