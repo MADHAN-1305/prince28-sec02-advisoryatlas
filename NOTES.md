@@ -770,3 +770,123 @@ Cumulative usage:
 - First-word latency target was not achieved.
 - Gemini 3.6 pricing requires verification.
 - Document-grounded retrieval is planned for Week 3.
+
+## D09 · Prompt versions compared
+
+<!-- prompts:start -->
+
+| Prompt version | Correct | Accuracy | Invalid replies | Avg tokens in |
+|---|---|---|---|---|
+| classify_v1 | 11/20 | 55% | 0 | 107 |
+| classify_v2 | 20/20 | 100% | 0 | 275 |
+| classify_v3 | 20/20 | 100% | 0 | 402 |
+| classify_v4 | 20/20 | 100% | 0 | 403 |
+
+<!-- prompts:end -->
+### Day 9 — Prompt evaluation observations
+
+- V1 achieved 55% accuracy and misclassified nine questions.
+- V1 failed the prompt injection test on line 19.
+- V2 and V3 achieved 100% accuracy.
+- V4 moved the output instruction to the end of the prompt.
+- V4 maintained 100% accuracy but did not outperform V3.
+- Cache reuse worked: 60 cached evaluations and 20 new model calls.
+- No prompt leakage was reported.
+- No questions were misclassified by V2, V3 or V4.
+- Limitation: 100% accuracy on 20 questions does not guarantee
+  perfect performance on unseen questions.
+  ### Manual metadata accuracy review
+
+- Document 1: CIVN-2026-0207
+  - Note ID, document kind and severity were correct.
+  - Publication year was incorrectly extracted as null.
+  - Expected year: 2026.
+
+- Document 2: CIVN-2026-0557
+  - Note ID, year, document kind and severity were correct.
+  - Authentication and information disclosure topics matched
+    the original document.
+
+- Lesson: Pydantic validates the structure of an LLM response,
+  but cannot guarantee factual correctness.
+  ### Custom metadata review
+
+- Vendor, affected_products and cve_ids are stored as
+  short structured lists.
+- Document 24 contains four extracted CVE identifiers.
+- Document 25 contains six extracted CVE identifiers.
+- Product names match the original document previews.
+- Full source verification of CVE identifiers remains pending.
+- Retained extract_v1 and documented the missing-year issue.
+### D09 - Whole corpus metadata extraction
+
+- Total parsed documents: 10.
+- Successful metadata extractions: 10.
+- Stored extraction failures: 0.
+- Corpus extraction coverage: 100%.
+- Extraction prompt: extract_v1.
+
+Remaining five documents:
+- Successful: 5.
+- Automatically repaired: 3.
+- Failed: 0.
+- Input tokens: 14915.
+- Output tokens: 8595.
+- Estimated cost: Rs 0.3512.
+- Duration: 129 seconds.
+
+### Metadata API filtering
+
+- doc_kind=notice: 10 matching documents.
+- language=en: 10 matching documents.
+- note_id=CIVN-2026-0207: 1 matching document.
+- Pagination with limit=3 worked.
+- All three API requests returned HTTP 200.
+- Custom list-based metadata filtering worked.
+- No new API endpoint was required.
+
+Known limitations:
+- Some responses required automatic repair of extra fields.
+- Missing publication year in CIVN-2026-0207.
+- Full factual accuracy of all metadata is not yet verified.
+
+### D09 · Prompts and structured output
+
+- My best router prompt: classify_v2 with 20/20 (100%).
+- V4 change: moved the output rule to the end. Accuracy remained 100%.
+- Best-version mistakes: none on the 20-question test set.
+- Test labels changed after evaluation: none.
+- Input tokens per question: v1 = 107, v2 = 275.
+- The additional tokens are justified by the improvement from 55% to 100%.
+- V2 is more token-efficient than v3 and v4.
+- Cache reuse verified: 20 new calls for v4; no LEAK reported.
+- Accuracy on unseen questions remains unverified.
+
+### My contract (DocMeta)
+
+- Fields retained: note_id, severity, vendor, affected_products, cve_ids.
+- Fields removed: affected_versions, solution, date. Detailed versions and
+  fixes belong in document content; year already covers basic date filtering.
+- Tightened severity using Literal with predefined lowercase values.
+
+### Extraction run
+
+- Prompt: extract_v1.
+- Documents: 10 successful, 0 failed, of 10 parsed.
+- Repaired: at least 7 confirmed across the runs.
+- Remaining documents: 0.
+- Common error: unexpected fields such as affected_versions and solution.
+- Fix: Pydantic validation and automatic repair.
+- Valid but wrong: CIVN-2026-0207 had year=null instead of 2026.
+- Latest five documents: Rs 0.3512 estimated cost, 129 seconds.
+- Total extraction cost and cost per document: pending usage verification.
+- Metadata filters: notice=10, language=en=10, CIVN-2026-0207=1.
+
+### One thing that went wrong today, and how I fixed it
+
+- Database connection closed during long LLM retry delays.
+- Separated database reading and saving into short-lived sessions.
+- Extraction resumed successfully without losing completed records.
+- Intermittent usage logging errors remain a known limitation.
+- Unit tests: 96 passed. Ruff lint and formatting passed.
+- Integration test: skipped locally, pending CI.

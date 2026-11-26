@@ -123,8 +123,16 @@ class OpenAICompatProvider:
         timed_out = isinstance(exc, httpx.TimeoutException)
         return LLMError(type(exc).__name__, retryable=not timed_out)
 
-    async def generate(self, messages: list[Message], *, temperature: float = 0.2) -> Reply:
+    async def generate(
+        self,
+        messages: list[Message],
+        *,
+        temperature: float = 0.2,
+        response_format: dict | None = None,
+    ) -> Reply:
         body = self._body(messages, temperature, stream=False)
+        if response_format is not None:
+            body["response_format"] = response_format
         try:
             response = await self._client.post(self._url, headers=self._headers, json=body)
         except httpx.TransportError as exc:
@@ -182,12 +190,25 @@ class FakeLLM:
         self.name, self.model = name, model
         self.script = list(script or [])
         self.calls = 0
+        self.seen: list[dict] = []
 
     def _next(self) -> object:
         self.calls += 1
         return self.script.pop(0) if self.script else "A fake answer."
 
-    async def generate(self, messages: list[Message], *, temperature: float = 0.2) -> Reply:
+    async def generate(
+        self,
+        messages: list[Message],
+        *,
+        temperature: float = 0.2,
+        response_format: dict | None = None,
+    ) -> Reply:
+        entry = {"messages": messages, "temperature": temperature}
+
+        if response_format is not None:
+            entry["response_format"] = response_format
+
+        self.seen.append(entry)
         item = self._next()
         if isinstance(item, Exception):
             raise item
