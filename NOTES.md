@@ -699,3 +699,74 @@ without fallback.
 - Ruff lint: PASS.
 - Formatting: 58 files passed.
 - Live verification: Pending deployment.
+
+### D08 - Final production verification
+
+- Date: 2026-11-26
+- Pull request #16: merged.
+- Production commit: d724b12
+- Health endpoint: PASS.
+- Readiness endpoint: PASS.
+- Database connection: True.
+- Dockerfile prompt COPY: verified.
+- Live streaming chat: PASS.
+- Live usage endpoint: PASS.
+
+### Live response measurements
+
+First request:
+- First words: 31.06 s
+- Total time: 31.12 s
+- Input tokens: 241
+- Output tokens: 94
+- Cost: Rs 0.004396
+- Provider: Groq
+- Fallback: YES
+
+Second awake request:
+- First words: 10.28 s
+- Total time: 10.28 s
+- Input tokens: 241
+- Output tokens: 193
+- Cost: Rs 0.007218
+- Provider: Groq
+- Fallback: YES
+
+- Latency target under 1.5 s: NOT MET.
+- Model response: "I am not sure."
+- Document retrieval is not connected yet.
+- Gemini primary did not answer these requests.
+- Groq fallback kept the application operational.
+
+### Final usage and cost
+
+Date: 2026-11-26
+- Provider calls: 4
+- Errors: 2
+- Fallbacks: 2
+- Input tokens: 482
+- Output tokens: 287
+- Estimated cost: Rs 0.0116
+- Successfully answered questions: 2
+- Average estimated cost per answer: Rs 0.0058
+- Cost target under Rs 0.50: MET.
+
+Cumulative usage:
+- Provider calls: 41
+- Estimated cost: Rs 0.1914
+
+### Unit test issue and resolution
+
+- Four unit tests initially failed with HTTP 503 and 500.
+- Root cause: duplicate tests/unit/conftest.py
+  overriding the updated shared fixtures.
+- Removed the obsolete duplicate fixture file.
+- All 81 local unit tests passed.
+- Ruff lint and formatting passed.
+
+### Final limitations
+
+- Production Gemini reliability needs investigation.
+- First-word latency target was not achieved.
+- Gemini 3.6 pricing requires verification.
+- Document-grounded retrieval is planned for Week 3.
