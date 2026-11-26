@@ -879,7 +879,11 @@ Known limitations:
 - Fix: Pydantic validation and automatic repair.
 - Valid but wrong: CIVN-2026-0207 had year=null instead of 2026.
 - Latest five documents: Rs 0.3512 estimated cost, 129 seconds.
-- Total extraction cost and cost per document: pending usage verification.
+- Daily estimated LLM cost: Rs 1.3185.
+- Daily cost per document: Rs 0.13185 (10 documents).
+- Includes prompt evaluation, extraction and other LLM calls.
+- Total project LLM cost: Rs 1.4983.
+- Live usage endpoint: PASS.
 - Metadata filters: notice=10, language=en=10, CIVN-2026-0207=1.
 
 ### One thing that went wrong today, and how I fixed it
